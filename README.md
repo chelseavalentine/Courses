@@ -1,4 +1,4 @@
 Introduction-to-Programming
 ===========================
 
-Programs made for class assignments.
+Python programs made for class assignments.
