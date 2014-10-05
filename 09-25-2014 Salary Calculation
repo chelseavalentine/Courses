@@ -1,6 +1,12 @@
 # Calculates an employee's salary based upon hours worked and pay per hour.
+"""
+Assignment: 
+- calculate an employee's salary based upon the straight pay (amount owed to worker for work less than or equal to 40 hours)
+- and overtime pay (amount owed to worker for work done after 40 hours, 1.5*rate if worked overtime), then add both to get the
+- total pay.
+"""
 
-print("Hello employee, welcome to the salary calculator!      ")
+print("Hello employee, welcome to the salary calculator!")
 
 #Get hours and pay rate from employee
 x=(int(input("How many hours have you worked? ")))
