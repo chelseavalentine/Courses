@@ -1,0 +1,20 @@
+"""
+Goal: Create a game that allows the user to play hangman
+"""
+
+import turtle
+
+# Verify that the user wants to play!
+print("Welcome to Hangman~")
+funtime = input("Are you already to have fun? (Yes or no) ")
+
+if lower(funtime) == "no":
+  print("Ok then... bye.")
+
+else:
+  print("Let's begin~")
+  
+#Let user choose what type of words will be randomly chosen
+
+
+#Draw the base for the hangman
