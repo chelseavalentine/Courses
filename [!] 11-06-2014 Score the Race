@@ -4,3 +4,20 @@ Assignment details:
   [Summary of super long assignment instructions here]
 Student name: Chelsea Valentine (cv851)
 """
+
+#Ask the user for the race's results
+input("Input a string of uppercase letters that indicate the outcome of the race: ")
+
+
+print("There are", teamCount, "teams")
+print("There are", runnersCount, "on each team.")
+for i in teamNames:
+    print (teamNames[i], end="\t")
+
+    for j in teamScores:
+        print (teamScores[j])
+
+        i+=1
+        j+=1
+
+print("Congratualtions! Team", winner,"won the race with a score of", winningScore)
