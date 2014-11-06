@@ -5,19 +5,36 @@ Assignment details:
 Student name: Chelsea Valentine (cv851)
 """
 
+#Define accumulative variables and lists
+teamCount = 0
+team = []
+scores = []
+
+
 #Ask the user for the race's results
-input("Input a string of uppercase letters that indicate the outcome of the race: ")
+userinput = list(input("Input a string of uppercase letters that indicate the outcome of the race: "))
 
+a = sorted(userinput)
+print(a)
+print(userinput)
 
-print("There are", teamCount, "teams")
-print("There are", runnersCount, "on each team.")
-for i in teamNames:
-    print (teamNames[i], end="\t")
+for i in range (0, len(a)):
+    if a[i] not in team:
+        team.append(a[i])
+        scores.append(0)
+    if a[i] in team:
+        teamCount += 1
 
-    for j in teamScores:
-        print (teamScores[j])
+for i in range(0, len(a)):
+    for j in range(0, len(team)):
+        if userinput[i] == team[j]:
+            scores[j] += (i+1)
 
-        i+=1
-        j+=1
+print(scores)
 
-print("Congratualtions! Team", winner,"won the race with a score of", winningScore)
+for i in range (0, len(team)):
+    print (team[i], end='\t')
+    print (format(scores[i]/len(team), '.2f'))
+
+print("There are", len(team), "teams.")
+print("There are", int(teamCount/len(team)), "players per team.")
