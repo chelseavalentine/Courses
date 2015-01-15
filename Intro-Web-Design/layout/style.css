@@ -144,22 +144,6 @@ td {
   background-color: black;
   font-size: 12px; }
 
-img.duckie {
-  position: relative;
-  top: -30px;
-  float: left;
-  margin-right: 10px; }
-
-p.duckie {
-  display: inline; }
-
-div.duckie {
-  margin-top: 30px;
-  background-color: #262626;
-  padding: 15px;
-  width: 600px;
-  border-radius: 4px; }
-
 img.duckies {
   width: 175px; }
 

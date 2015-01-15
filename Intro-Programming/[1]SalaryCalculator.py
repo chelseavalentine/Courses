@@ -17,6 +17,7 @@ y=(int(input("How much do you get paid per hour (in dollars)? ")))
 print("Your straight pay:", "$"+ str( ((x<40)*y*x) or (y*40))+ ".")
 print("Overtime pay:", "$"+str(int(float((x>40)*1.5*y*(x-40))))+".")
 
+#Create totals for each pay that we can easily refer to
 a=int(str(((x<40)*y*x)) and str(((x>=40)*y*40)))
 b=int(str(int(float((x>40)*1.5*y*(x-40)))))
 
