@@ -1,3 +1,3 @@
 # Introduction to Computer Science: Java
 
-Assignments won't be public until a while after the assignment was due, due to class honor guidelines.
+Assignments won't be public until a while after the assignment is due, due to class honor guidelines.
