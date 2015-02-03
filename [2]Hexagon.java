@@ -28,7 +28,7 @@ public class Hexagon {
 				+ "Units are not necessary.\n\n");
 		
 		//Initialize variables
-		double length, area, perimeter;
+		double length;
 		
 		//Ask user for length of regular hexagon sides
 		System.out.print("What is the length of your regular hexagon? ");
