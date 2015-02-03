@@ -36,12 +36,10 @@ public class Hexagon {
 		length = in.nextDouble();
 		
 		//Compute the area of the hexagon & display it to user
-		System.out.printf("\n\nThe area of the hexagon is: " + ((6*length*length)/(4*Math.tan(Math.PI/6))));
+		System.out.println("\nThe area of the hexagon is: " + ((6*length*length)/(4*Math.tan(Math.PI/6))));
 		
 		//Compute the perimeter of the hexagon & display it to user
 		System.out.println("The perimeter of the hexagon is: " + 6*length);
-		
-		
 		
 		in.close();
 	}
