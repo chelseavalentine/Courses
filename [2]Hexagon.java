@@ -2,6 +2,7 @@ import java.util.*;
 
 /* @title: Distance of two points
  * @author: Chelsea Valentine
+ * @date: Tuesday, February 3, 2015
  * 
  * Assignment:
  * 
@@ -22,5 +23,26 @@ import java.util.*;
 public class Hexagon {
 	public static void main(String[] args) {
 		
+		//Explain what the program does
+		System.out.println("This program will calculate the area and perimeter of a regular hexagon."
+				+ "Units are not necessary.\n\n");
+		
+		//Initialize variables
+		double length, area, perimeter;
+		
+		//Ask user for length of regular hexagon sides
+		System.out.print("What is the length of your regular hexagon? ");
+		Scanner in = new Scanner (System.in); //ensure that keyboard is available for input
+		length = in.nextDouble();
+		
+		//Compute the area of the hexagon & display it to user
+		System.out.printf("\n\nThe area of the hexagon is: " + ((6*length*length)/(4*Math.tan(Math.PI/6))));
+		
+		//Compute the perimeter of the hexagon & display it to user
+		System.out.println("The perimeter of the hexagon is: " + 6*length);
+		
+		
+		
+		in.close();
 	}
 }
