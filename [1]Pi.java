@@ -28,36 +28,40 @@ public class Pi {
 		//Calculate the answer to the first question: 4 x (1 - 1/3 + 1/5 - 1/7 + 1/9 - 1/11)
 		System.out.print("The answer to 4 x (1 - 1/3 + 1/5 - 1/7 + 1/9 - 1/11) is: ");
 		
-		for(double i=1; i<12; i+=2){
-			answer1 += (1/i)*sign;
+		//add a fraction to the total (answer1), incrementing the denominator by 2 each time
+		for(double i=1; i<12; i+=2){ 
+			answer1 += (1/i)*sign; 
 			sign *= -1;
 		}
+		
 		answer1 *= 4;
 		System.out.println(answer1);
 
 		//Calculate the answer to the second question: 4 x (1 - 1/3 + 1/5 - 1/7 + 1/9 - 1/11)
 		System.out.print("The answer to 4 x (1 - 1/3 + 1/5 - 1/7 + 1/9 - 1/11 + 1/13) is: ");
-
+		
+		//add a fraction to the total (answer2), incrementing the denominator by 2 each time
 		for(double i=1; i<14; i+=2){
 			answer2 += (1/i)*sign;
 			sign *= -1;
 		}
-		answer2 *= 4;
 		
+		answer2 *= 4;
 		System.out.println(answer2);
 		
 		sign = 1; //Reset sign to 1, because it was -1 before.
 		
 		//Calculate the answer to the extra credit portion
 		System.out.print("The answer to an expression using the first 1,000 terms of the above summation, rather than 6 or 7, is: ");
-		for (double i=1; i<1001; i++){
+		
+		//add a fraction to the total (answer3), incrementing the denominator by 2 each time
+		for (double i=1; i<1001; i++){ //This allows us to find the sum of the first 1000 terms
 			answer3 += (1/denominator) * sign;
 			denominator += 2;
 			sign *= -1;
 		}
 		
 		answer3 *= 4;
-		
 		System.out.println(answer3);
 	}
 }
