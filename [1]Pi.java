@@ -1,9 +1,7 @@
-import java.util.*;
-
 /* @title: Approximating Pi
  * @author: Chelsea Valentine
- * @date: Tuesday, Feb 3, 2015
  * 
+ * @date: Tuesday, Feb 3, 2015
  * Assignment:
  * 
  * The value of Pi can be approximated using the following formula:
