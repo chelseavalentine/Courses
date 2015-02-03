@@ -2,6 +2,7 @@ import java.util.*;
 
 /* @title: Approximating Pi
  * @author: Chelsea Valentine
+ * @date: Tuesday, Feb 3, 2015
  * 
  * Assignment:
  * 
