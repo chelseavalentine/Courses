@@ -79,8 +79,7 @@ public class Bonus {
 		if (secondHighestEmployee != ""){
 			System.out.println("The second highest bonus went to " + secondHighestEmployee + " with $" + secondHighestBonus);
 		}
-		
-		
+				
 		in.close();
 	}
 }
