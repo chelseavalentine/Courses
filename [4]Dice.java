@@ -1,6 +1,7 @@
 /*
  * @title: Rolling a Dice
  * @author: Chelsea Valentine
+ * @date: February 8, 2015
  * 
  * Assignment:
  * 
@@ -16,6 +17,10 @@
 
 public class Dice {
 	public static void main(String[] args){
+		
+		//Explain what this program does
+		System.out.println("This program rolls a dice 100,000 times and then produces the percentage of "
+				+ "times that it landed on 1, 2, 3, 4, 5, & 6.\n");
 		
 		//Set up accumulative variables
 		double rolled1, rolled2, rolled3, rolled4, rolled5, rolled6;
