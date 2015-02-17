@@ -29,6 +29,24 @@ import java.util.*;
 
 public class ShiftString {
 	public static void main (String[] args){
+		//Explain what this program does
+		System.out.println("This program takes a word that you input and shift a letter"
+				+ "by a random amount of characters to the right.");
 		
+		//Get user input
+		Scanner in = new Scanner ( System.in );
+		System.out.print("Please enter the word that you want to shift: ");
+		String originalWord = in.next(); 
+		
+		//Generate the random number of places that you will shift the last letter of the string to the right
+		int randomPlaces = (int)Math.floor(Math.random() * originalWord.length());
+		System.out.println(randomPlaces);
+		shift(originalWord, randomPlaces);
+		in.close();
+	}
+	
+	public static String shift ( String word, int placesToShift ){
+		String shiftedString = "yo";
+		return shiftedString;
 	}
 }
