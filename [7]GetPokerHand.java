@@ -41,6 +41,10 @@ public class GetPokerHand {
 		cards(5);
 	}
 
+	/**
+	 * Generates a specified number of random cards from a deck of 52 cards
+	 * @param numberOfCards the number of cards to randomly generate
+	 */
 	public static void cards (int numberOfCards){
 		//Create the 4 arrays for hearts, clubs, spades, & diamonds
 		ArrayList<String> hearts = new ArrayList<>(13);
@@ -76,9 +80,8 @@ public class GetPokerHand {
 		Set<String> chosenCards = new HashSet<String>();
 		
 		while (chosenCards.size() != numberOfCards){
-			double chosenCard = Math.floor(Math.random() * 52);
-			String thisCard = mainStack.get((int)chosenCard);
-			chosenCards.add(thisCard);
+			int chosenCard = (int)Math.floor(Math.random() * 52);
+			chosenCards.add(mainStack.get(chosenCard));
 		}
 		
 		//Create an iterator to be able to display all elements of the set
@@ -87,6 +90,12 @@ public class GetPokerHand {
 			System.out.println(yourCardsAre.next());
 	}
 	
+
+	/** 
+	 * Adds the Ace, King, Queen, and Jack cards, of each of the suits, to the main deck.
+	 * @param deck the suit we'll be generating the cards for
+	 * @param name the name of the suit we'll be generating cards for
+	 */
 	public static void addHighCards(ArrayList<String> deck, String name){
 		deck.add("Ace of " + name);
 		deck.add("King of " + name);
