@@ -2,7 +2,7 @@ import java.util.*;
 
 /* @title: Generating Cards
  * @author: Chelsea Valentine
- * @date:
+ * @date: Tuesday, February 17, 2015
  * 
  * Assignment:
  * 
@@ -34,7 +34,7 @@ public class GetPokerHand {
 		
 		//Let the user know what this program does
 		System.out.println("This program will 'randomly' generate 5 cards from a standard"
-				+ " deck of 52 cards.\n\n");
+				+ " deck of 52 cards.\n");
 		
 		//Let the user know what their hand is
 		System.out.println("Your hand is:");
