@@ -30,8 +30,8 @@ import java.util.*;
 public class ShiftString {
 	public static void main (String[] args){
 		//Explain what this program does
-		System.out.println("This program takes a word that you input and shift a letter"
-				+ "by a random amount of characters to the right.");
+		System.out.println("This program takes a word that you input and shift the last letter"
+				+ " by a random amount of characters to the right.\n");
 		
 		//Get user input
 		Scanner in = new Scanner ( System.in );
@@ -39,14 +39,39 @@ public class ShiftString {
 		String originalWord = in.next(); 
 		
 		//Generate the random number of places that you will shift the last letter of the string to the right
-		int randomPlaces = (int)Math.floor(Math.random() * originalWord.length());
-		System.out.println(randomPlaces);
-		shift(originalWord, randomPlaces);
+		int randomPlaces = (int)Math.ceil(Math.random() * originalWord.length());
+		
+		//Explicitly print the result to the user
+		System.out.println("We shifted the last letter of your word '" + originalWord + "' "
+				+ randomPlaces + " places to the right and we ended up the result: "
+						+ shift(originalWord, randomPlaces));
+		
 		in.close();
 	}
 	
 	public static String shift ( String word, int placesToShift ){
-		String shiftedString = "yo";
-		return shiftedString;
+		//Convert the string into a char array so we can move things around
+		char[] wordCharArray = word.toCharArray();
+		
+		//Declare a StringBuilder so we can construct our shifted string in it
+		StringBuilder shiftedString = new StringBuilder();
+		
+		//Hold the value of the last character, which is the character that'll get shifted
+		char shiftedCharacter = wordCharArray[wordCharArray.length-1];
+				
+		//Start from the end of the string so you don't overwrite any values
+		for (int i = wordCharArray.length-1; i>= placesToShift; i--){
+			wordCharArray[i] = wordCharArray[i-1]; //Move a letter 'x' (for instance) to the position after it
+		}
+		
+		//Insert the original last character to it's shifted place
+		wordCharArray[placesToShift-1] = shiftedCharacter;
+		
+		//Iterate through the charArray & add it to the StringBuilder
+		for (char c: wordCharArray){
+			shiftedString.append(c);
+		}
+		
+		return shiftedString.toString();
 	}
 }
