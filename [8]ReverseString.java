@@ -2,7 +2,7 @@ import java.util.*;
 
 /* @title: Reverse String
  * @author: Chelsea Valentine
- * @date:
+ * @date: Tuesday, February 17, 2015
  * 
  * Assignment:
  * 
@@ -20,6 +20,33 @@ import java.util.*;
 
 public class ReverseString {
 	public static void main (String[] args){
+		//Tell user what program does
+		System.out.println("This program will give you the reverse of a string that you enter.\n");
 		
+		//Get user input
+		Scanner in = new Scanner(System.in);
+		
+		System.out.print("Please enter the string that you want to reverse: ");
+		String originalString = in.nextLine();
+		
+		//Give the reversed string back to the user
+		System.out.println(reverse(originalString));
+		
+		in.close();
+	}
+	
+	public static String reverse ( String textToReverse ){
+		
+		//Create a stringbuilder since they're mutable
+		StringBuilder reversedString = new StringBuilder();
+		
+		//Iterate over the original string backwards to reverse it, adding each character
+		//to the stringbuilder
+		for (int i = (textToReverse.length()-1); i >= 0; i--){
+			String addToReversedString = Character.toString(textToReverse.charAt(i));
+			reversedString.append(addToReversedString);
+		}
+		
+		return reversedString.toString();
 	}
 }
