@@ -26,10 +26,7 @@ public class IsSorted {
 		//Get the user to enter a list of 10 integers
 		int [] list = new int [10];
 		Scanner in = new Scanner(System.in);
-		for (int i = 0; i < 10; i++){
-			System.out.print("Please enter an integer: ");
-			list[i] = in.nextInt();
-		}
+		enterIntegerList(list, in);
 		
 		//Check whether the list is sorted by comparing adjacent elements
 		isSorted(list);
@@ -51,13 +48,29 @@ public class IsSorted {
 			}
 			else{
 				stillSorted = false;
-				System.out.println("Your list is NOT sorted.");
+				System.out.println("Your list is NOT sorted.\n");
 				break;
 			}
 		}
 		
 		if (stillSorted == true){
-			System.out.println("Your list is sorted.");
+			System.out.println("Your list is sorted.\n");
 		}
+	}
+	
+	/** 
+	 * Get the user to fill up a list with integer values
+	 * @param list the list that needs to be filled in with integers
+	 * @param in the name of the variable that accepts input from the keyboard
+	 * @return the list with all of the spaces in the list filled in
+	 */
+	public static int[] enterIntegerList (int [] list, Scanner in){
+		//Iterate through the loop, asking for an input for every space in the list.
+		for (int i = 0; i < list.length; i++){
+			System.out.print("Please enter an integer: ");
+			list[i] = in.nextInt();
+		}
+				
+		return list;
 	}
 }
