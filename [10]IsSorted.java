@@ -3,7 +3,7 @@ import java.util.*;
 /*
  * @title: Is it sorted?
  * @author: Chelsea Valentine
- * @date:
+ * @date: Wednesday, February 25, 2015
  * 
  * Assignment:
  * 
@@ -19,6 +19,45 @@ import java.util.*;
 
 public class IsSorted {
 	public static void main(String[] args){
+		//Explain what the program does
+		System.out.println("This program will accept a list of 10 integers and tell you whether they are sorted from"
+				+ " least to greatest.\n");
 		
+		//Get the user to enter a list of 10 integers
+		int [] list = new int [10];
+		Scanner in = new Scanner(System.in);
+		for (int i = 0; i < 10; i++){
+			System.out.print("Please enter an integer: ");
+			list[i] = in.nextInt();
+		}
+		
+		//Check whether the list is sorted by comparing adjacent elements
+		isSorted(list);
+		
+		in.close();
+	}
+	
+	/** 
+	 * Tells you whether the list you input has its integers sorted from least to greatest
+	 * @param list the list to check for least to greatest ordering
+	 */
+	public static void isSorted (int [] list){
+		boolean stillSorted = true; //Keep track of whether the list is sorted
+		
+		//Compare adjacent elements to check whether the list is sorted
+		for (int i = 0; i < (list.length - 1); i++){
+			if (list[i] <= list[i+1]){
+				continue;
+			}
+			else{
+				stillSorted = false;
+				System.out.println("Your list is NOT sorted.");
+				break;
+			}
+		}
+		
+		if (stillSorted == true){
+			System.out.println("Your list is sorted.");
+		}
 	}
 }

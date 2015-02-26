@@ -49,6 +49,12 @@ public class ShiftString {
 		in.close();
 	}
 	
+	/**
+	 * Shifts the last letter of the word right by a random number of places
+	 * @param word
+	 * @param placesToShift the random number of places that the last letter will be shifted right
+	 * @return the shifted word in string format
+	 */
 	public static String shift ( String word, int placesToShift ){
 		//Convert the string into a char array so we can move things around
 		char[] wordCharArray = word.toCharArray();

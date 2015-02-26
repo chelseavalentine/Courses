@@ -29,12 +29,17 @@ public class ReverseString {
 		System.out.print("Please enter the string that you want to reverse: ");
 		String originalString = in.nextLine();
 		
-		//Give the reversed string back to the user
+		//Run the method on the original string & give the reversed string back to the user
 		System.out.println(reverse(originalString));
 		
 		in.close();
 	}
 	
+	/**
+	 * Reverses the characters of a string and returns a string of the reversed word
+	 * @param textToReverse the original string that needs to be reversed
+	 * @return the original string in the reverse order
+	 */
 	public static String reverse ( String textToReverse ){
 		
 		//Create a stringbuilder since they're mutable
