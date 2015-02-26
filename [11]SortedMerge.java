@@ -30,7 +30,8 @@ public class SortedMerge {
 	public static void main(String[] args){
 		//Explain what the program does
 		System.out.println("This program will have you input two sorted lists of integers and "
-				+ "merge them together in order.\n");
+				+ "merge them together in order.\n"
+				+ "Please sort the elements of each list from least to greatest.\n");
 		
 		//Ask the user for the lengths of the lists
 		int length1, length2;
@@ -49,35 +50,93 @@ public class SortedMerge {
 		
 		//Get the user to enter the integers for the first list
 		System.out.println("First we're going to fill up the first list of integers. \n");
-		enterList(list1);
+		enterIntegerList(list1, in);
 		isSorted(list1);
 		
 		//Get the user to enter the integers for the second list
 		System.out.println("Now we'll fill up the second list of integers. \n");
-		enterList(list2);
+		enterIntegerList(list2, in);
 		isSorted(list2);
 		
 		//Merge the lists
-		merge(list1, list2);
+		int mergedListLength = list1.length + list2.length;
+		int [] mergedList = new int [mergedListLength];
+		mergedList =  merge(list1, list2);
 		
+		
+		//Show the user the merged list
+		System.out.println("We merged your two lists together and got: ");
+		
+		for (int i = 0; i < mergedList.length; i++){
+			if (i != (mergedList.length - 1))
+				System.out.print(mergedList[i] + ", ");
+			else
+				System.out.print(mergedList[i] + ".");
+		}
+			
 		in.close();
 	}
 	
-	/**
-	 * @param list1
-	 * @param list2
-	 * @return
+	/** Takes two integer lists ordered from least to greatest and returns a merged list
+	 * @param list1 a list of integers ordered from least to greatest
+	 * @param list2 a list of integers ordered from least to greatest
+	 * @return the union of list 1 and 2 sorted from least to greatest
 	 */
 	public static int [] merge (int [] list1, int [] list2){
 		int mergedListLength = list1.length + list2.length;
 		int [] mergedList = new int [mergedListLength];
 		
-		for (int i = 0; i < mergedListLength; i++ ){
-			for (int j = 0; j < list1.length; j++){
+		//Keep track of the indices of list 1 & 2
+		int index1, index2;
+		index1 = index2 = 0;
 				
+		for (int i = 0; i < mergedListLength; i++){
+			if ( (index1 < (list1.length)) && (index2 < (list2.length)) ){
+				if (list1[index1] <= list2[index2]){
+					//If the numbers from each list are the same, then just add both of them to the merged list
+					if (list1[index1] == list2[index2]){
+						mergedList[i] = list1[index1];
+						mergedList[i+1] = list2[index2];
+						
+						//Increment i because 2 slots were filled;
+						i++;
+						
+						//Increment the indices of the lists to show that we're moving onto the next element of the respective lists
+						index1++;
+						index2++;
+					}
+					
+					//otherwise, just add the smallest number to the merged list
+					else{
+						mergedList[i] = list1[index1];
+						index1++;
+					}
+				}
+				
+				//If the 'if' part failed, then the element of list 2 is less than the element of list 1, so we add that to the merged
+				//list
+				else{
+					mergedList[i] = list2[index2];
+					index2++;
+				}
 			}
-			if ()
+			
+			//when the if part fails, it means that at least one of the two lists have been exhausted of its elements
+			else{
+				if (index1 != (list1.length)){
+					//Add all of the remaining elements to the merged list
+					mergedList[i] = list1[index1];
+					index1++;
+				}
+				
+				if (index2 != (list2.length)){
+					//Add all of the remaining elements to the merged list
+					mergedList[i] = list2[index2];
+					index2++;
+				}
+			}
 		}
+			
 		return mergedList;
 	}
 	
@@ -95,31 +154,29 @@ public class SortedMerge {
 			}
 			else{
 				stillSorted = false;
-				System.out.println("Your list is NOT sorted.");
+				System.out.println("Your list is NOT sorted.\n");
 				break;
 			}
 		}
 		
 		if (stillSorted == true){
-			System.out.println("Your list is sorted.");
+			System.out.println("Your list is sorted.\n");
 		}
 	}
 	
 	/** 
 	 * Get the user to fill up a list with integer values
 	 * @param list the list that needs to be filled in with integers
+	 * @param in the name of the variable that accepts input from the keyboard
 	 * @return the list with all of the spaces in the list filled in
 	 */
-	public static int[] enterList (int [] list){
-		Scanner in = new Scanner(System.in);
-		
+	public static int[] enterIntegerList (int [] list, Scanner in){
 		//Iterate through the loop, asking for an input for every space in the list.
 		for (int i = 0; i < list.length; i++){
 			System.out.print("Please enter an integer: ");
 			list[i] = in.nextInt();
 		}
-		
-		in.close();
+				
 		return list;
 	}
 }
