@@ -1,0 +1,68 @@
+@import 'color';
+
+.font{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 400;
+	color: white;
+}
+
+h1{
+	@extend .font;
+	font-size: 42px;
+}
+
+h2{
+	@extend .font;
+	font-size: 24px;
+}
+
+h3{
+	@extend .font;
+	font-size: 18px;
+}
+p{
+	@extend .font;
+	font-size: 14px;
+	max-width: 700px;
+}
+
+i{
+	color: $green;
+}
+//Lists
+li{
+	@extend .font;
+	font-size: 14px;
+}
+
+
+//Links
+a:link, a:visited{
+	color: $cyan;
+	text-decoration: none;
+}
+
+a:hover, a:active{
+	color: $pink;
+	text-decoration: underline;
+}
+
+a.none:active, a.none:hover{
+	background-color: transparent;
+	text-decoration: none;
+}
+
+
+//Other
+table{
+	@extend .font;
+}
+
+button{
+	@extend .font;
+	font-weight: 500;
+}
+
+::selection{
+	background-color: #999;
+}

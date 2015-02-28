@@ -1,0 +1,120 @@
+@import 'font';
+@import 'color';
+
+body{
+	background-color: $charcoal;
+	width: 100%;
+	height: 100%;
+}
+
+div{
+	margin: 0;
+}
+
+.navigationBar{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 50px;
+	background-color: black;
+	z-index: 2;
+}
+
+.navigation{
+	position: relative;
+	top: 4px;
+	left: 6px;
+	display: inline-block;
+}
+
+div.logo{
+	display: inline-block;
+	background-color: $cyan;
+	top: 0;
+	width: 224px;
+	height: 50px;
+}
+
+img.logo{
+	position: relative;
+	left: 12px;
+	top: 12px;
+}
+
+div.sidebar{
+	position: fixed;
+	background-color: $cyanlight;
+	left: 0;
+	width: 224px;
+	height: 100%;
+}
+
+ul.sidebar{
+	position: relative;
+	top: 30px;
+}
+
+.content{
+	position: relative;
+	top: 30px;
+	left: 324px;
+	width: 70%;
+}
+
+button{
+	text-transform: uppercase;
+	border-radius: 4px;
+	padding: 6px;
+	background-color: black;
+	border: solid 1px white;
+	color: white;
+}
+
+table, th, td{
+	border: solid 2px #262626;
+	border-collapse: collapse;
+}
+
+th{
+	background-color: $cyanlight;
+	font-weight: 400;
+	color: $cyandark;
+	text-align: left;
+	padding-left: 10px;
+}
+
+.th1{
+	width: 150px;
+}
+
+.th2{
+	width: 450px;
+}
+
+td{
+	padding: 5px;
+	padding-left: 10px;
+	padding-right: 10px;
+	background-color: black;
+	font-size: 12px;
+}
+
+img.duckie{
+	position: relative;
+	top: -30px;
+	float: left;
+	margin-right: 10px;
+}
+
+p.duckie{
+	display: inline;
+}
+
+div.duckie{
+	margin-top: 30px;
+	background-color: #262626;
+	padding: 15px;
+	width: 600px;
+	border-radius: 4px;
+}
