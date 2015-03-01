@@ -35,6 +35,10 @@ p{
 i{
 	color: $green;
 }
+
+i.grey{
+	color: grey;
+}
 //Lists
 li{
 	@extend .font;
@@ -67,7 +71,7 @@ table{
 button{
 	@extend .font;
 	font-weight: 500;
-	
+
 }
 
 ::selection{
