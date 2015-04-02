@@ -1,0 +1,21 @@
+@import 'font';
+@import 'color';
+@import 'page';
+@import 'content';
+@import 'otherpages';
+
+.columnsplz{
+	column-count: 3;
+	-webkit-column-count: 3;
+	-moz-column-count: 3;
+	column-gap: 20px;
+	-webkit-column-gap: 20px;
+	-moz-column-gap: 20px;
+}
+
+.content{
+	position: relative;
+	top: 75px;
+	width: 70%;
+	margin-bottom: 100px;
+}

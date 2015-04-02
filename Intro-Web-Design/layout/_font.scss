@@ -5,6 +5,14 @@
 	font-weight: 400;
 	color: white;
 	margin: 0;
+	text-align: left;
+}
+
+.headers {
+  @extend .font;
+  color: $white;
+  opacity: 1;
+  padding: 20px;
 }
 
 h1{
@@ -25,6 +33,29 @@ h3{
 	margin-bottom: 10px;
 }
 
+// This controls the header of the site 'Chelsea Valentine'
+h6 {
+  @extend .headers;
+  font-weight: 500;
+  font-size: 18px;
+  text-transform: uppercase;
+  margin-left: 35px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  padding: 0;
+  opacity: .8;
+}
+
+// Font of the topbar titles
+h5 {
+  @extend .headers;
+  display: inline-block;
+  @extend h6;
+  margin-left: 0;
+  padding: 0;
+  opacity: 1;
+}
+
 p{
 	@extend .font;
 	font-size: 14px;
@@ -39,12 +70,12 @@ i{
 i.grey{
 	color: grey;
 }
+
 //Lists
 li{
 	@extend .font;
 	font-size: 14px;
 }
-
 
 //Links
 a:link, a:visited{
@@ -62,6 +93,44 @@ a.none:active, a.none:hover{
 	text-decoration: none;
 }
 
+// Side bar
+ul.menu {
+  top: 50px;
+  position: relative;
+  margin-left: -40px;
+  width: 100%;
+}
+
+hr.menu {
+  height: 1px;
+  border: 0;
+  width: 90%;
+  background: $cyan300;
+}
+
+li.menu {
+  display: block;
+  margin-left: 10px;
+  list-style: none;
+  padding: 5px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+a.menu:link,
+a.menu:visited {
+  color: $white;
+  opacity: 1;
+  text-decoration: none; 
+}
+
+a.menu:hover,
+a.menu:active {
+  color: $cyan500;
+  opacity: 1;
+  text-decoration: none; 
+}
+
 
 //Other
 table{
@@ -71,7 +140,12 @@ table{
 button{
 	@extend .font;
 	font-weight: 500;
-
+	text-transform: uppercase;
+	border-radius: 4px;
+	padding: 6px;
+	background-color: black;
+	border: solid 1px white;
+	color: white;
 }
 
 ::selection{
