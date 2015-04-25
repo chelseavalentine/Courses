@@ -1,3 +1,5 @@
+package hw8;
+
 /**
  * @title Expression Validation
  * @author Chelsea Valentine
@@ -18,7 +20,7 @@
  * 	if the character is an opening bracket
  * 		push it on the stack
  * 	if the character is a closing bracket
- * 		if the stack if empty
+ * 		if the stack is empty
  * 			return invalid
  * 		if the top of the stack is an opening bracket
  * 			pop it
@@ -35,5 +37,57 @@
  */
 
 public class BracketValidator {
+	public static void main (String[] args) {
+		
+		System.out.println("This program will take in a mathematical expression through the "
+				+ "command line, and then tell you whether it is valid.\n\n");
+		//Create our stack using the StackOfCharacters object
+		StackOfCharacters stack = new StackOfCharacters();
+
+		//Keep track of whether the mathematical expression is valid or invalid
+		boolean validity = true;
+		
+		//cycle through all of the characters in the input string
+		for (int i = 0; i < args[0].length(); i++) {
+			
+			
+			//If the character is an opening bracket, push it on the stack
+			if (args[0].charAt(i) == '(') {				
+				stack.push(args[0].charAt(i));
+			}
+			
+			//if the character is a closing bracket, do this stuff
+			if (args[0].charAt(i) == ')') {
+				
+				//if the stack is empty, the equation is INVALID
+				if (stack.empty()) {
+					validity = false;
+				}
+				
+				//if the top of the stack is an opening bracket, pop it off the top
+				if (stack.peek() == '(') {
+					stack.pop();
+				}
+			}
+		}
+		
+		//if the stack is empty, the expression is VALID
+		if (stack.empty()) {
+			validity = true;
+		}
+		
+		//if the stack isn't empty, the expression is INVALID
+		else {
+			validity = false;
+		}
+		
+		//Display the validity of the math expression
+		if (validity) {
+			System.out.println("VALID");
+		}
+		else {
+			System.out.println("INVALID");
+		}
+	}
 
 }
