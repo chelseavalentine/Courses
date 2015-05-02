@@ -1,3 +1,4 @@
+package game;
 import processing.core.PApplet;
 
 /**
@@ -23,17 +24,75 @@ import processing.core.PApplet;
  * so that the game is challenging. You can divide the game into levels: in each consecutive 
  * level the disks become harder to click on (get smaller or get faster, or some combination
  * of both)
+ * 
+ *  [1] Create something that generates random disks that have a value on it
+ *  [2] Disk properties: value (10, 20, 50, 100), size (ellipse), disappearTime, speed (random),
+ *  direction(random), mode (if hard mode, disks move faster or are smaller)
  */
 
+
 public class MyGame extends PApplet {
+	//Game settings
+	int disks = 10;
+	int counter = 0;
+	int maxDisks = 50;
+	int currentDisks = 1;
+	int score = 0;
+	int timer = 0;
+	Disk[] allDisks = new Disk[disks];
+	Score userScore = new Score();
+	
 	public static void main (String args[]) {
-		PApplet.main(new String[] { "MyGame"} );
+		PApplet.main(new String[] { "MyGame"} );	
 	}
+
 	public void setup(){
-		size(500, 500);
+		background(0, 0, 0);
+		size(700, 500);
+		for (int i = 0; i < allDisks.length; i++) {
+			allDisks[i] = new Disk(this);
+		}
+		
 	}
 	
-	public void draw(){
-		ellipse( random(0, 500), random(0, 500), 10, 10);
+	public void draw(){	
+		counter++;
+		timer++;
+		if (counter >= 200 && currentDisks < maxDisks && timer!= 6000) {
+			currentDisks++;
+			counter = 0;
+			userScore.score += 1;
+		}
+//			background(0, 0, 0);
+		
+		//the disks should move around
+		for (int i = 0; i < currentDisks; i++) {
+//			allDisks[i].move();
+		}
+				
+		//When the mouse is pressed, if the user has pressed an
+		//ellipse, delete the ellipse, generate a new one, and
+		//add the value of the ellipse to their score
+		
+		//If the game has been going on for 60 seconds, stop;
+		if (timer == 1000) {
+			background(139, 194, 72);
+			textSize(40);
+			fill(255, 255, 255);
+			text("Game Over! You scored:", 120, 175);
+			fill(255, 255, 255);
+			textSize(75);
+			text(userScore.score, 300, 285);
+			
+		}
+	}
+	
+	class Score {
+		int score;
+		
+		public Score () {
+			score = 0;
+		}
 	}
 }
+
