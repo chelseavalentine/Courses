@@ -7,37 +7,28 @@ import processing.core.PApplet;
  * @date May 1, 2015
  * 
  * @assignment:
- * 
- * 
  * Implement a game in which the user has to collect points by clicking on moving disks.
- * Each disk should have its own value associated with it (possible values should be 10,
- * 20, 50, 100). The value of each disk should be displayed inside of the moving disk. 
- * Each disk should move at its own rate and direction. (Hint: you should have a Disk class.)
- * The disks disappear after some time (you could make disks of with the higher value 
- * disappear much faster than the disks of the larger values. The user collects points by 
- * clicking on disks. Your program should detect if the user successfully clicked on a disk.
+ * Each disk should have its own value associated with it (10, 20, 50, 100). 
+ * The value of each disk should be displayed inside of the moving disk. 
+ * Each disk should move at its own rate and direction.
+ * The disks disappear after some time 
+ * The user collects points by clicking on disks. 
+ * Your program should detect if the user successfully clicked on a disk. 
  * If the user successfully clicks on the disk, the disk’s point value is added to the user’s
- * total and the disk should disappear. The game should last 1 minute. After one minute the
- * total value of points collected should be displayed. Note: Make sure that the disks are
- * large enough for a human user (read: your instructor) to click on. Make sure that the 
- * disks are moving slow enough so that a human user can click them, but also fast enough
- * so that the game is challenging. You can divide the game into levels: in each consecutive 
- * level the disks become harder to click on (get smaller or get faster, or some combination
- * of both)
- * 
+ * total and the disk should disappear. 
+ * The game should last 1 minute. After one minute the total value of points collected should be displayed.
+ * You can divide the game into levels: in each consecutive level the disks become 
+ * harder to click on (get smaller or get faster, or some combination of both) 
  */
 
-
 public class MyGame extends PApplet {
+	
 	//Game settings
 	int disks = 10;
 	int counter = 0;
-	int maxDisks = 50;
-	int score = 0;
 	int timer = 0;
-	int redraw = 0;
 	Disk[] allDisks = new Disk[disks];
-	Score stats = new Score(this);
+	Score stats = new Score();
 	boolean asked = false;
 	boolean hardMode = false;
 	
@@ -45,6 +36,7 @@ public class MyGame extends PApplet {
 		PApplet.main(new String[] { "MyGame"} );	
 	}
 
+	//set up what the applet will look like when it's first loaded
 	public void setup(){
 		size(700, 500);
 		background(0, 0, 0);
@@ -55,35 +47,44 @@ public class MyGame extends PApplet {
 	}
 	
 	public void draw(){	
+		//Check which difficulty level the user wants to play at
 		if (keyPressed && (keyCode == LEFT || keyCode == RIGHT)) {
 			asked = true;
-			if (keyCode == 37) {
+			//if the left key was played, let's do the easy mode
+			if (keyCode == LEFT) {
+				//generate the disks for our game
 				for (int i = 0; i < allDisks.length; i++) {
 					allDisks[i] = new Disk(this, hardMode);
 				}
 			}
+			//otherwise, let's do the hard mode
 			else {
+				//generate the disks for our game
 				for (int i = 0; i < allDisks.length; i++) {
 					hardMode = true;
 					allDisks[i] = new Disk(this, hardMode);
 				}
 			}
-			background(0, 0, 0);
+			
+			background(0, 0, 0); //clear the mess that is created by generating disks
 		}
 		
+		//Don't start playing the game until the user has finally answered the question
+		//of which difficulty level they want to play at
 		if (asked) {
-			counter++;
-			timer++;
+			counter++; //count when we should create a new disk
+			timer++; //keep track of how much time the user has been playing for
 			
-			if (counter >= 100 && stats.currentDisks < maxDisks && timer!= 600) {
-				stats.currentDisks++;
+			if (counter >= 100 && timer!= 600) {
+				stats.currentDisks++; //a new disk has been made, so let's keep track of total
 				counter = 0;
 			}
 			
-			background(0, 0, 0);
+			background(0, 0, 0); //make the screen black so we don't get trailing circles
 			
+			//Let's play until 60 seconds have gone by
 			if (timer < 6000) {
-				//the disks should move around
+				//give the disks life by moving them around
 				for (int i = 0; i < stats.currentDisks && i < allDisks.length; i++) {
 					allDisks[i].move();
 					
@@ -91,72 +92,84 @@ public class MyGame extends PApplet {
 					disappear(allDisks[i]);
 				}
 				
-			} else {
+			}
+			else {
 				//If the game has been going on for 60 seconds, stop;
-				background(139, 194, 72);
+				background(139, 194, 72); //light green background
 				textSize(40);
 				fill(255, 255, 255);
-				text("Game Over! You scored:", 120, 175);
+				
+				//display the user's results
+				text("Game Over! You scored:", 120, 175); 
 				fill(255, 255, 255);
 				textSize(75);
 				text(stats.score, 300, 285);	
 			}
 			
-			//When the mouse is pressed, if the user has pressed an
-			//ellipse, delete the ellipse, generate a new one, and
-			//add the value of the ellipse to their score
+			//When the mouse is pressed, if the user has pressed an ellipse, 
+			//delete the ellipse, & add the value of the ellipse to their score
 			if (mousePressed) {
-				//Check whether the mouse location was in an object
+				//go through each of the disks
 				for (int i = 0; i < stats.currentDisks && i < allDisks.length; i++) {
+					//check whether the mouse click was in that object
 					if (dist(mouseX, mouseY, allDisks[i].posX, allDisks[i].posY) < (allDisks[i].size)/2) {
+						//yes it was, so add the value of the disk to the score & delete the disk
 						stats.score += (int)allDisks[i].value;
 						delete(allDisks[i]);
 					}
 				}
 			}
 			
+			//If all of the disks have gone away, let's make new ones so we can
+			//keep playing
 			if (stats.disappearances == 10) {
-				stats.currentDisks = 0;
+				stats.currentDisks = 0; //reset the current amount of disks
+				//create a new set of disks to play with
 				for (int i = 0; i < allDisks.length; i++) {
 					allDisks[i] = new Disk(this, hardMode);
 				}
-				stats.disappearances = 0;
-				background(0, 0, 0);
+				stats.disappearances = 0; //reset the number of disappearances
+				background(0, 0, 0); //hide the disk creation
 			}
-		}
-		
+		}	
 	}
 	
-	PApplet canvas;
-	public class Score {
-		int score;
-		int currentDisks;
-		int disappearances;
+	/** Check whether it is time for a disk to expire/go away. If it is, remove it.
+	 * @param disk the disk that could expire
+	 */
+	public void disappear(Disk disk) {
+		disk.alive += 10; //accurately reflect how long the disk has been alive
 		
-		public Score (PApplet canvase) {
-			canvas = canvase;
+		//if it has been alive for the amount of time before it needs to die, kill this disk
+		if (disk.alive == disk.disappear) {
+			disk.size = 0; //Make the disk so small that you can't see it.
+			stats.currentDisks--; //reflect that there're less disks in the total
+			disk.hide = true; //the disk is in hide mode, so let's make move() not work on it
+			stats.disappearances++; //increase the number of disappearances so we know when to regenerate
+		}		
+	}	
+	
+	/** Remove a disk from sight when the user has successfully clicked on it.
+	 * @param disk the disk that we're getting rid of
+	 */
+	public void delete(Disk disk) {		
+		disk.size = 0; //Make the disk so small that you can't see it.
+		stats.currentDisks--; //reflect that there're less disks in the total
+		disk.hide = true; //the disk is in hide mode, so let's make move() not work on it
+		stats.disappearances++; //increase the number of disappearances so we know when to regenerate
+	}	
+	
+	//Create a Score object to keep track of all of the game statistics
+	public class Score {
+		protected int score; //the user's score
+		protected int currentDisks; //the number of disks that're currently in play
+		protected int disappearances; //the amount of disks that have expired/been successfully clicked on
+		
+		//the typical score object
+		public Score () {
 			score = 0;
 			currentDisks = 0;
 			disappearances = 0;
 		}
-	}
-	
-	public void disappear(Disk disk) {
-		disk.alive += 10;
-		
-		if (disk.alive == disk.disappear) {
-			disk.size = 0;
-			stats.currentDisks--;
-			disk.hide = true;
-			stats.disappearances++;
-		}		
 	}	
-	
-	public void delete(Disk disk) {		
-		disk.size = 0;
-		stats.currentDisks--;
-		disk.hide = true;
-		stats.disappearances++;
-	}	
-	
 }
