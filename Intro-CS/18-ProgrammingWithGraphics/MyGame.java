@@ -33,86 +33,111 @@ public class MyGame extends PApplet {
 	int disks = 10;
 	int counter = 0;
 	int maxDisks = 50;
-	int currentDisks = 0;
 	int score = 0;
 	int timer = 0;
 	int redraw = 0;
 	Disk[] allDisks = new Disk[disks];
 	Score stats = new Score(this);
+	boolean asked = false;
+	boolean hardMode = false;
 	
 	public static void main (String args[]) {
 		PApplet.main(new String[] { "MyGame"} );	
 	}
 
 	public void setup(){
-		background(0, 0, 0);
 		size(700, 500);
-		for (int i = 0; i < allDisks.length; i++) {
-			allDisks[i] = new Disk(this);
-		}
+		background(0, 0, 0);
+		fill(255, 255, 255);
+		textSize(32);
+		text("Choose a mode:\n\n Easy [left key]\n Hard [right key]", 225, 175);
 		
 	}
 	
 	public void draw(){	
-		counter++;
-		timer++;
-		
-		if (counter >= 100 && currentDisks < maxDisks && timer!= 600) {
-			stats.currentDisks++;
-			counter = 0;
-		}
-		
-		background(0, 0, 0);
-		
-		if (timer < 6000) {
-			//the disks should move around
-			for (int i = 0; i < stats.currentDisks && i < allDisks.length; i++) {
-				allDisks[i].move();
-				
-				//check whether it's time for the disk to disappear~
-				disappear(allDisks[i]);
-				
-			}
-			//if there aren't anymore disks left, regenerate!!!
-			if (allDisks.length == 0) {
+		if (keyPressed && (keyCode == LEFT || keyCode == RIGHT)) {
+			asked = true;
+			if (keyCode == 37) {
 				for (int i = 0; i < allDisks.length; i++) {
-					allDisks[i] = new Disk(this);
+					allDisks[i] = new Disk(this, hardMode);
 				}
 			}
-		} else {
-			//If the game has been going on for 60 seconds, stop;
-			background(139, 194, 72);
-			textSize(40);
-			fill(255, 255, 255);
-			text("Game Over! You scored:", 120, 175);
-			fill(255, 255, 255);
-			textSize(75);
-			text(stats.score, 300, 285);	
+			else {
+				for (int i = 0; i < allDisks.length; i++) {
+					hardMode = true;
+					allDisks[i] = new Disk(this, hardMode);
+				}
+			}
+			background(0, 0, 0);
 		}
+		
+		if (asked) {
+			counter++;
+			timer++;
+			
+			if (counter >= 100 && stats.currentDisks < maxDisks && timer!= 600) {
+				stats.currentDisks++;
+				counter = 0;
+			}
+			
+			background(0, 0, 0);
+			
+			if (timer < 6000) {
+				//the disks should move around
+				for (int i = 0; i < stats.currentDisks && i < allDisks.length; i++) {
+					allDisks[i].move();
+					
+					//check whether it's time for the disk to disappear~
+					disappear(allDisks[i]);
+				}
 				
-		//When the mouse is pressed, if the user has pressed an
-		//ellipse, delete the ellipse, generate a new one, and
-		//add the value of the ellipse to their score
-		if (mousePressed) {
-			//Check whether the mouse location was in an object
-			for (int i = 0; i < stats.currentDisks && i < allDisks.length; i++) {
-				if (dist(mouseX, mouseY, allDisks[i].posX, allDisks[i].posY) < (allDisks[i].size)/2) {
-					stats.score += (int)allDisks[i].value;
-					delete(allDisks[i]);
+			} else {
+				//If the game has been going on for 60 seconds, stop;
+				background(139, 194, 72);
+				textSize(40);
+				fill(255, 255, 255);
+				text("Game Over! You scored:", 120, 175);
+				fill(255, 255, 255);
+				textSize(75);
+				text(stats.score, 300, 285);	
+			}
+			
+			//When the mouse is pressed, if the user has pressed an
+			//ellipse, delete the ellipse, generate a new one, and
+			//add the value of the ellipse to their score
+			if (mousePressed) {
+				//Check whether the mouse location was in an object
+				for (int i = 0; i < stats.currentDisks && i < allDisks.length; i++) {
+					if (dist(mouseX, mouseY, allDisks[i].posX, allDisks[i].posY) < (allDisks[i].size)/2) {
+						stats.score += (int)allDisks[i].value;
+						delete(allDisks[i]);
+					}
 				}
 			}
+			
+			if (stats.disappearances == 10) {
+				stats.currentDisks = 0;
+				for (int i = 0; i < allDisks.length; i++) {
+					allDisks[i] = new Disk(this, hardMode);
+				}
+				stats.disappearances = 0;
+				background(0, 0, 0);
+			}
 		}
+		
 	}
 	
 	PApplet canvas;
 	public class Score {
 		int score;
 		int currentDisks;
+		int disappearances;
 		
 		public Score (PApplet canvase) {
 			canvas = canvase;
 			score = 0;
 			currentDisks = 0;
+			disappearances = 0;
 		}
 	}
 	
@@ -123,9 +148,7 @@ public class MyGame extends PApplet {
 			disk.size = 0;
 			stats.currentDisks--;
 			disk.hide = true;
-			canvas.ellipse(-150, -150, disk.size, disk.size);
-			canvas.textSize(disk.textSize);
-			canvas.text(disk.text, 0, 0);	
+			stats.disappearances++;
 		}		
 	}	
 	
@@ -133,9 +156,7 @@ public class MyGame extends PApplet {
 		disk.size = 0;
 		stats.currentDisks--;
 		disk.hide = true;
-		canvas.ellipse(-150, -150, disk.size, disk.size);
-		canvas.textSize(disk.textSize);
-		canvas.text(disk.text, 0, 0);		
+		stats.disappearances++;
 	}	
 	
 }
