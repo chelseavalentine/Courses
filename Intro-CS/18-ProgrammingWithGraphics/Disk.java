@@ -12,11 +12,14 @@ public class Disk {
 	protected float dirY; //the y direction that the disk will travel
 	protected float posX; //disk x position when generated
 	protected float posY; //disk y position when generated
-	Boolean hardMode; //if it's hard mode, the disks will be smaller & move faster
+	protected int alive; //the time the disk has spent alive
+	protected String text;
+	protected Boolean hide = false;
 	PApplet canvas;
+	protected int textSize;
 	
 	//Create the default Disk object
-	public Disk ( PApplet canvas ) {
+	public Disk ( PApplet canvas, Boolean hardMode) {
 		this.canvas = canvas;
 		
 		//choose one of the values randomly
@@ -26,33 +29,33 @@ public class Disk {
 		size = value * 3;
 		
 		//the time it takes for the disk to disappear depends on its value
-		disappear = (int)value * 10;
+		disappear = (int)((100/value) * 1000);
 		
 		//the disk's speed depends on its value
-		speed = value * 10;
+		speed = value * 5;
 		
 		//direction will be randomly chosen
 		dirX = canvas.random(-5, 5);
 		dirY = canvas.random(-5, 5);
 		
-//		if (hardMode) {
-//			size *= 0.5; //disks are smaller
-//			speed *= 1.25; //and faster
-//		}
-		
-		if (this.canvas.mousePressed) {
-			
+		if (hardMode) {
+			size *= 0.5; //disks are smaller
+			speed *= 1.25; //and faster
 		}
 		
 		//generate the disks in random positions
 		posX = canvas.random(0, canvas.width);
 		posY = canvas.random(0, canvas.height);
 		
-		this.canvas.fill( canvas.random(0, 255), canvas.random(0, 255), canvas.random(0, 255));
+		this.canvas.fill( canvas.random(20, 255), canvas.random(20, 255), canvas.random(20, 255));
 		this.canvas.ellipse(posX, posY, size, size);
-		this.canvas.fill(0, 0, 0);
-		this.canvas.textSize(24);
-		this.canvas.text((int)value, posX, posY);
+		
+		//show the value of the disk
+		textSize = 24;
+		text = Float.toString(value);
+		this.canvas.fill(255, 255, 255);
+		this.canvas.textSize(textSize);
+		this.canvas.text(text, posX, posY);
 	}
 		
 	public void move() {
@@ -79,14 +82,18 @@ public class Disk {
 			posY = 0;
 			dirY *= -1; 
 		}
-		this.canvas.color(0, 0, 0);
+
 		this.canvas.fill(canvas.random(10, 255), canvas.random(10, 255), 255);
 		this.canvas.ellipse(posX, posY, size, size);
-		this.canvas.fill(0, 0, 0);
-		this.canvas.text((int)this.value, posX-15, posY+10);
+		this.canvas.fill(255, 255, 255);
+		
+		if (this.hide) {
+			this.canvas.text((int)this.value, -100, -100);
+		}
+		else {
+			this.canvas.text((int)this.value, posX-15, posY+10);
+		}
 	}
 	
-	public void clicked() {
-		
-	}
+	
 }
