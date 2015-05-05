@@ -1,3 +1,120 @@
 body {
 	padding-top: 50px;
+	padding-bottom: 100px;
 }
+
+.duckies{
+	width: 175px;
+}
+
+/*Half of the time, the confetti will go to the right of where it was clicked*/
+		@-webkit-keyframes confettiRight {
+		  20%{
+		    transform: translate(-100px, -200px);
+		  }
+		  70%{
+		    transform: translate(-150px, 95%);
+		  }
+		  85%{
+		    transform: translate(-145px, 95%);
+		  }
+		  100% {
+		    transform: translate(-150px, 95%);
+		  }
+		}
+
+		@-moz-keyframes confettiRight {
+		  20%{
+		    transform: translate(-100px, -200px)
+		  }
+		  70%{
+		    transform: translate(-150px, 95%)
+		  }
+		  85%{
+		    transform: translate(-145px, 95%)
+		  }
+		  100% {
+		    transform: translate(-150px, 95%)
+		  }
+		}
+
+		@keyframes confettiRight {
+		  20%{
+		    transform: translate(-100px, -200px)
+		  }
+		  70%{
+		    transform: translate(-150px, 95%)
+		  }
+		  85%{
+		    transform: translate(-145px, 95%)
+		  }
+		  100% {
+		    transform: translate(-150px, 95%)
+		  }
+		}
+
+		/*The other part of the time, the confetti will fly to the left and take
+		 on this behavior*/
+		@-webkit-keyframes confettiLeft {
+		  20%{
+		    transform: translate(100px, -200px)
+		  }
+		  70%{
+		    transform: translate(150px, 95%)
+		  }
+		  85%{
+		    transform: translate(145px, 95%)
+		  }
+		  100% {
+		    transform: translate(150px, 95%)
+		  }
+		}
+
+		@-moz-keyframes confettiLeft {
+		  20%{
+		    transform: translate(100px, -200px)
+		  }
+		  70%{
+		    transform: translate(150px, 95%)
+		  }
+		  85%{
+		    transform: translate(145px, 95%)
+		  }
+		  100% {
+		    transform: translate(150px, 95%)
+		  }
+		}
+
+		@keyframes confettiLeft {
+		  20%{
+		    transform: translate(100px, -200px)
+		  }
+		  70%{
+		    transform: translate(150px, 95%)
+		  }
+		  85%{
+		    transform: translate(145px, 95%)
+		  }
+		  100% {
+		    transform: translate(150px, 95%)
+		  }
+		}
+		/*So the confetti looks a bit more realistic, it will rotate until it's flat 
+		when it falls*/
+		@-webkit-keyframes fallFlat {
+		  100% {
+		    transform: rotate(0deg)
+		  }
+		}
+
+		@-moz-keyframes fallFlat {
+		  100% {
+		    transform: rotate(0deg)
+		  }
+		}
+
+		@keyframes fallFlat {
+		  100% {
+		    transform: rotate(0deg)
+		  }
+		}

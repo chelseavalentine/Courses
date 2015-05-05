@@ -30,8 +30,8 @@
 	        </div>
 	        <div id="navbar" class="navbar-collapse collapse">
 	          <ul class="nav navbar-nav">
-	            <li class="active"><a href="/~cv851">Home</a></li>
-	            <li><a href="confetti.html">Confetti</a></li>
+	            <li><a href="/~cv851">Home</a></li>
+	            <li class="active"><a href="confetti.html">Confetti</a></li>
 	            <li><a href="valentine.html">Valentine Land</a></li>
 	          </ul>
 	        </div><!--/.nav-collapse -->
@@ -41,99 +41,54 @@
 	    <div class="container theme-showcase" role="main">
 
 	    <div class="page-header">
-	    	<h1>Stacks on stacks.</h1>
+	    	<h1><a href="https://github.com/ycp217/stacked">Stacks on stacks.</a></h1>
 	    </div>
 		    <p><center>
-				<img src="img/rain.png">
+				<img id="allConfetti" src="img/rain.png">
 				<br><br>
 				<h2>Make it rain confetti!</h2>
 				<p>See what appears when you hover over the images on this page.</p>
 				<br><br>
-				<table>
-					<tr>
-						<td class="duckies"><img class="duckies" src="img/duck2.svg"></td>
-						<td class="duckies"><img class="duckies" src="img/duck1.svg"></td>
-						<td class="duckies"><img class="duckies" src="img/duck3.svg"></td>
-					</tr>
-				</table>
+				<img class="duckies" id="greenPurpleConfetti" src="img/duck2.svg">
+				<img class="duckies" id="blueConfetti" src="img/duck1.svg">
+				<img class="duckies" id="redPinkConfetti" src="img/duck3.svg">
 				<br>
 				<br>
-				<p>(<b>Pro hint:</b> this feature hasn't been implemented yet)</p>
+				<br>
 			</center></p>
 
-	      <div class="page-header">
-	        <h1>Buttons</h1>
-	      </div>
-	      <p>
-	        <button type="button" class="btn btn-default">Default</button>
-	        <button type="button" class="btn btn-link">Link</button>
-	      </p>
-	      <p>
-	        <button type="button" class="btn btn-sm btn-default">Default</button>
-	        <button type="button" class="btn btn-sm btn-link">Link</button>
-	      </p>
-	      <p>
-	        <button type="button" class="btn btn-xs btn-default">Default</button>
-	        <button type="button" class="btn btn-xs btn-primary">Primary</button>
-	        <button type="button" class="btn btn-xs btn-success">Success</button>
-	        <button type="button" class="btn btn-xs btn-info">Info</button>
-	        <button type="button" class="btn btn-xs btn-warning">Warning</button>
-	      </p>
 
-
-	     <div class="page-header">
-	        <h1>Alerts</h1>
-	      </div>
-	      <div class="alert alert-success" role="alert">
-	        <strong>Well done!</strong> You successfully read this important alert message.
-	      </div>
-
-
-	      <div class="page-header">
-	        <h1>Panels</h1>
-	      </div>
-	      <div class="row">
-	        <div class="col-sm-4">
-	          <div class="panel panel-default">
-	            <div class="panel-heading">
-	              <h3 class="panel-title">Panel title</h3>
-	            </div>
-	            <div class="panel-body">
-	              Panel content
-	            </div>
-	          </div>
-	          <div class="panel panel-primary">
-	            <div class="panel-heading">
-	              <h3 class="panel-title">Panel title</h3>
-	            </div>
-	            <div class="panel-body">
-	              Panel content
-	            </div>
-	          </div>
-	        </div><!-- /.col-sm-4 -->
-	        <div class="col-sm-4">
-	          <div class="panel panel-success">
-	            <div class="panel-heading">
-	              <h3 class="panel-title">Panel title</h3>
-	            </div>
-	            <div class="panel-body">
-	              Panel content
-	            </div>
-	          </div>
-	          <div class="panel panel-info">
-	            <div class="panel-heading">
-	              <h3 class="panel-title">Panel title</h3>
-	            </div>
-	            <div class="panel-body">
-	              Panel content
-	            </div>
-	          </div>
-	        </div><!-- /.col-sm-4 -->
+		<div class="page-header">
+			<h2>Fun facts about Confetti</h2>
+		</div>
+		<div class="col-sm-16">
+          <div class="list-group">
+            <a class="list-group-item">
+              <h4 class="list-group-item-heading">Fun fact #1</h4>
+              <p class="list-group-item-text">
+              	The first mention of confetti in literature exists in Italian author Giovanni Boccaccio’s Decameron novellas, which were published from 1313-1365. These were “candy-like confections originally made from honey and dried fruit as well as spices and, possibly, seeds or nuts.”
+              </p>
+            </a>
+            <a class="list-group-item">
+              <h4 class="list-group-item-heading">Fun fact #2</h4>
+              <p class="list-group-item-text">
+              	An Italian businessman, Enrico Mangili, developed the first paper confetti for use in Milan parades in 1975. He did so by gathering up the punched-out pieces of paper left over from silkworm bedding devices. This new paper confetti was much cheaper and safer than other objects tossed in Milan parades.
+              </p>
+            </a>
+            <a class="list-group-item">
+              <h4 class="list-group-item-heading">Fun fact #3</h4>
+              <p class="list-group-item-text">
+              	In 1885, paper confetti was first used as part of a New Year’s celebration in Paris, France. This was done on the spur of the moment after a casino owner sliced up old New Year’s decorations and tossed them at the next evening’s celebrations.
+              </p>
+            </a>
+          </div>
+        </div><!-- /.col-sm-4 -->
 	    </div> <!-- /container -->
 
 
 	    <!-- Placed at the end of the document so the pages load faster -->
 	    <script src="bootstrap/js/docs.min.js"></script>
+	    <script src="layout/script.js"></script>
 	    <!-- Latest compiled and minified JavaScript -->
 		<script src="bootstrap/js/bootstrap.min.js"></script>
 	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
