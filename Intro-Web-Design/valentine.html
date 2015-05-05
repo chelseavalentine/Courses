@@ -3,9 +3,9 @@
 	<head>
 		<title>Valentine's Day | Chelsea Valentine</title>
 
-		<link rel="stylesheet" media="only screen and (min-width: 481px) and (max-width: 960px)" href="layout/tablet.css">
-		<link rel="stylesheet" media="only screen and (min-width: 961px)" href="layout/desktop.css">
-		<link rel="stylesheet" media="only screen and (max-width: 480px)" href="layout/mobile.css">
+		<link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/custom.css">
+		<link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
 
 		<meta name="viewport" content="initial-scale=1">
 
@@ -14,104 +14,117 @@
 		<script src="layout/jquery-1.11.2.min" type="text/javascript"></script>
 	</head>
 
-	<body>
-		<div class="sidebar">
-			<div class="header">
-	    		<a class="none" href="http://i6.cims.nyu.edu/~cv851/"><img class="logo" src="img/logo.png"></a>
-	    	</div>
-    		<ul class="menu">
-	    		<li class="menu"><a class="menu" href="http://i6.cims.nyu.edu/~cv851/">Home</a></li>
-				<hr class="menu">
+	 <body role="document">
 
-				<li class="menu"><a class="menu" href="confetti.html">Confetti Wonderland</a></li>
-				<hr class="menu">
-				
-				<li class="menu"><a class="menu" href="valentine.html">Valentine's Day</a></li>
-				<hr class="menu">
-				
-				<li class="menu"><a class="menu" href="https://github.com/chelseavalentine" target="_blank">GitHub</a></li>
-				<hr class="menu">
-				
-				<li class="menu"><a class="menu" href="http://chelseavalentinesday.com" target="_blank">Personal Website</a></li>
-				<hr class="menu">
-    		</ul>
-    	</div>
+	    <!-- Fixed navbar -->
+	    <nav class="navbar navbar-inverse navbar-fixed-top">
+	      <div class="container">
+	        <div class="navbar-header">
+	          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+	            <span class="sr-only">Toggle navigation</span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	            <span class="icon-bar"></span>
+	          </button>
+	          <a class="navbar-brand" href="#">Chelsea Valentine</a>
+	        </div>
+	        <div id="navbar" class="navbar-collapse collapse">
+	          <ul class="nav navbar-nav">
+	            <li class="active"><a href="/~cv851">Home</a></li>
+	            <li><a href="confetti.html">Confetti</a></li>
+	            <li><a href="valentine.html">Valentine Land</a></li>
+	          </ul>
+	        </div><!--/.nav-collapse -->
+	      </div>
+	    </nav>
 
-    	<div class="topbar">
-    		<div class="header">
-	    		<a class="none" href="http://i6.cims.nyu.edu/~cv851/"><img class="logo" src="img/logo.png"></a>
-	    	</div>
+	    <div class="container theme-showcase" role="main">
 
-    		<div class="headerContent">
-    			<img class="hamburger" width="24px" src="layout/menu.svg">
-    			<h5>Chelsea Valentine</h5>
-    			
-    		</div>
-    	</div>
+	    <div class="page-header">
+	    	<h1>Every day is Valentine's Day.</h1>
+	    </div>
+	    <p><center>
+			<img src="img/pond.svg" width="700px"><br>
+			<br><br>
+			<button class="btn btn-lg btn-danger">Love is in the air</button>
+			<a href="confetti.html"><img src="img/heart.svg" width="16px"></a>
+		</center></p>
 
-    	<div class="cover"></div>
+	      <div class="page-header">
+	        <h1>Buttons</h1>
+	      </div>
+	      <p>
+	        <button type="button" class="btn btn-default">Default</button>
+	        <button type="button" class="btn btn-link">Link</button>
+	      </p>
+	      <p>
+	        <button type="button" class="btn btn-sm btn-default">Default</button>
+	        <button type="button" class="btn btn-sm btn-link">Link</button>
+	      </p>
+	      <p>
+	        <button type="button" class="btn btn-xs btn-default">Default</button>
+	        <button type="button" class="btn btn-xs btn-primary">Primary</button>
+	        <button type="button" class="btn btn-xs btn-success">Success</button>
+	        <button type="button" class="btn btn-xs btn-info">Info</button>
+	        <button type="button" class="btn btn-xs btn-warning">Warning</button>
+	      </p>
 
-    	<center>
-		<div class="content">
-			<center>
-				<h1>Every day is Valentine's Day.</h1>
-				<img src="img/pond.svg" width="700px"><br>
-				<br><br>
-				<button class="hearts">Love is in the air</button>
-				<button class="raining">Should've brought an umbrella</button>
-				<a href="confetti.html"><img src="img/heart.svg" width="16px"></a>
 
-				<br><br>
-				Rain drops are going to fall, and hearts will float. Eventually.
-			</center>
-		</div>
-		</center>
+	     <div class="page-header">
+	        <h1>Alerts</h1>
+	      </div>
+	      <div class="alert alert-success" role="alert">
+	        <strong>Well done!</strong> You successfully read this important alert message.
+	      </div>
 
-		<script>
 
-			var menu = 0;
+	      <div class="page-header">
+	        <h1>Panels</h1>
+	      </div>
+	      <div class="row">
+	        <div class="col-sm-4">
+	          <div class="panel panel-default">
+	            <div class="panel-heading">
+	              <h3 class="panel-title">Panel title</h3>
+	            </div>
+	            <div class="panel-body">
+	              Panel content
+	            </div>
+	          </div>
+	          <div class="panel panel-primary">
+	            <div class="panel-heading">
+	              <h3 class="panel-title">Panel title</h3>
+	            </div>
+	            <div class="panel-body">
+	              Panel content
+	            </div>
+	          </div>
+	        </div><!-- /.col-sm-4 -->
+	        <div class="col-sm-4">
+	          <div class="panel panel-success">
+	            <div class="panel-heading">
+	              <h3 class="panel-title">Panel title</h3>
+	            </div>
+	            <div class="panel-body">
+	              Panel content
+	            </div>
+	          </div>
+	          <div class="panel panel-info">
+	            <div class="panel-heading">
+	              <h3 class="panel-title">Panel title</h3>
+	            </div>
+	            <div class="panel-body">
+	              Panel content
+	            </div>
+	          </div>
+	        </div><!-- /.col-sm-4 -->
+	    </div> <!-- /container -->
 
-			$(".hamburger").click(function(){
-			  if (menu%2 !== 0){
-			    hideSide(500);
-			  }
-			  else{
-			    showSide(500);
-			  }
-			  menu++;
-			})
 
-			$(".hamburger").hover(function(){
-			  $(this).animate({opacity: "1"}, 0);
-			})
-
-			$(".hamburger").mouseout(function(){
-			  $(this).animate({opacity: "0.5"}, 0);
-			})
-
-			var cover = false;
-
-			function hideSide(time){
-			  $(".sidebar, .header").fadeOut(0);
-			  $(".headerContent").animate({left: "10px"}, time);
-			  if (cover === true){
-			    $(".cover").fadeOut(time);
-			    cover = false;
-			  }
-			}
-
-			function showSide(time){
-			  $(".sidebar, .header").fadeIn(0);
-			  $(".headerContent").animate({left: "250px"}, time);
-			  $(".cover")
-			    .show(0);
-			  cover = true;
-			}
-
-			$("div.cover").click(function(){
-			  hideSide(500);
-			  menu++;
-			});
-		</script>
-	</body>
+	    <!-- Placed at the end of the document so the pages load faster -->
+	    <script src="bootstrap/js/docs.min.js"></script>
+	    <!-- Latest compiled and minified JavaScript -->
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    </body>
 </html>

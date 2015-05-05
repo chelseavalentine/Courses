@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Confetti Wonderland | Chelsea Valentine</title>
+		<link rel="stylesheet" media="only screen and (min-width: 481px) and (max-width: 960px)" href="layout/tablet.css">
+		<link rel="stylesheet" media="only screen and (min-width: 961px)" href="layout/desktop.css">
+		<link rel="stylesheet" media="only screen and (max-width: 480px)" href="layout/mobile.css">
+
+		<meta name="viewport" content="initial-scale=1">
+
+		<link rel="icon" href="layout/favicon.png" type="image/png" sizes="16x16">
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700,900' rel='stylesheet' type='text/css'>
+		<script src="layout/jquery-1.11.2.min" type="text/javascript"></script>
+	</head>
+
+<body>
+		<div class="sidebar">
+			<div class="header">
+	    		<a class="none" href="http://i6.cims.nyu.edu/~cv851/"><img class="logo" src="img/logo.png"></a>
+	    	</div>
+    		<ul class="menu">
+	    		<li class="menu"><a class="menu" href="http://i6.cims.nyu.edu/~cv851/">Home</a></li>
+				<hr class="menu">
+
+				<li class="menu"><a class="menu" href="confetti.html">Confetti Wonderland</a></li>
+				<hr class="menu">
+				
+				<li class="menu"><a class="menu" href="valentine.html">Valentine's Day</a></li>
+				<hr class="menu">
+				
+				<li class="menu"><a class="menu" href="https://github.com/chelseavalentine" target="_blank">GitHub</a></li>
+				<hr class="menu">
+				
+				<li class="menu"><a class="menu" href="http://chelseavalentinesday.com" target="_blank">Personal Website</a></li>
+				<hr class="menu">
+    		</ul>
+    	</div>
+
+    	<div class="topbar">
+    		<div class="header">
+	    		<a class="none" href="http://i6.cims.nyu.edu/~cv851/"><img class="logo" src="img/logo.png"></a>
+	    	</div>
+
+    		<div class="headerContent">
+    			<img class="hamburger" width="24px" src="layout/menu.svg">
+    			<h5>Chelsea Valentine</h5>
+    			
+    		</div>
+    	</div>
+
+    	<div class="cover"></div>
+
+    	<center>
+		<div class="content">
+			<center>
+			<img src="img/rain.png">
+			<br><br>
+			<h2>Make it rain confetti!</h2>
+			<p>See what appears when you hover over the images on this page.</p>
+			<br><br>
+			<table>
+				<tr>
+					<td class="duckies"><img class="duckies" src="img/duck2.svg"></td>
+					<td class="duckies"><img class="duckies" src="img/duck1.svg"></td>
+					<td class="duckies"><img class="duckies" src="img/duck3.svg"></td>
+				</tr>
+			</table>
+			<br>
+			<br>
+			<p>(<b>Pro hint:</b> this feature hasn't been implemented yet)</p>
+			</center>
+
+		</div>
+		</center>
+
+		<script>
+
+			var menu = 0;
+
+			$(".hamburger").click(function(){
+			  if (menu%2 !== 0){
+			    hideSide(500);
+			  }
+			  else{
+			    showSide(500);
+			  }
+			  menu++;
+			})
+
+			$(".hamburger").hover(function(){
+			  $(this).animate({opacity: "1"}, 0);
+			})
+
+			$(".hamburger").mouseout(function(){
+			  $(this).animate({opacity: "0.5"}, 0);
+			})
+
+			var cover = false;
+
+			function hideSide(time){
+			  $(".sidebar, .header").fadeOut(0);
+			  $(".headerContent").animate({left: "10px"}, time);
+			  if (cover === true){
+			    $(".cover").fadeOut(time);
+			    cover = false;
+			  }
+			}
+
+			function showSide(time){
+			  $(".sidebar, .header").fadeIn(0);
+			  $(".headerContent").animate({left: "250px"}, time);
+			  $(".cover")
+			    .show(0);
+			  cover = true;
+			}
+
+			$("div.cover").click(function(){
+			  hideSide(500);
+			  menu++;
+			});
+		</script>
+	</body>
+</html>
