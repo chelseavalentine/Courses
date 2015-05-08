@@ -31,11 +31,14 @@ public class Movie {
 	private double rating;
 	private int quantity;
 	private int duration;
-	private ArrayList<Movie> list = new ArrayList<Movie>();
+	
 	
 	public static void main (String[] args) {
 		try {
 			Scanner file = new Scanner (new File("movies_db.txt"));
+			
+			//create new inventory
+			Inventory movies = new Inventory();
 			
 			while (file.hasNext()) {
 				String[] entries = file.nextLine().split(" - ");
@@ -59,8 +62,6 @@ public class Movie {
 					System.out.println("The ratiing should be between 0.0 and 4.0");
 					System.out.println("The duration of the movie needs to be a positive integer.");
 				}
-				
-				new Movie (newTitle, newYear, newDuration, newRating);
 			}
 			
 			file.close();
@@ -101,6 +102,19 @@ public class Movie {
 		//Only decrement the quantity if the quantity won't drop below 0
 		if (this.quantity > 0) {
 			this.quantity--;
+		}
+	}
+	
+	public int getQuantity() {
+		return this.quantity;
+	}
+	
+	public boolean checkForRemoval (String title, int year) {
+		if (this.title == title && this.yearReleased == year) {
+			return true;
+		}
+		else {
+			return false;
 		}
 	}
 	
