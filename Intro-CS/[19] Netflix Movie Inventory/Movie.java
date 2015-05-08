@@ -1,4 +1,6 @@
 package netflix;
+import java.util.*;
+import java.io.*;
 
 /**
  * @title Netflix Movie Inventory
@@ -21,7 +23,7 @@ package netflix;
  * The class provides one constructor that takes 4 parameters (title, yearReleased, duration, rating) and sets
  * the quantity to 1;
  * 
- * The constructor should verify the parameters provided and throw an IllegalArgumentEception exception if any
+ * The constructor should verify the parameters provided and throw an IllegalArgumentException exception if any
  * of the parameters are invalid.
  * 
  * The class needs to provide a way of modifying the quantity data field. The quantity should never fall below 0.
@@ -42,11 +44,46 @@ package netflix;
  * 
  * THE PROGRAM: your program should take a single command line parameter. The parameter is the name of the file containing
  * the movie database. The program needs to read in the file and populate the inventory with the movies from the file. The
- * input file contains one movie per line and the information is separated with dashes "-". The filds on each line are:
+ * input file contains one movie per line and the information is separated with dashes "-". The fields on each line are:
  * 
  * title - year - duration - rating
  */
 
-public class Movie {
 
+public class Movie {
+	private String title;
+	private int yearReleased;
+	private double rating;
+	private int quantity;
+	private int duration;
+	
+	public static void main (String[] args) {
+		try {
+			Scanner file = new Scanner (new File("movies_db.txt"));
+			
+			while (file.hasNextLine()) {
+				System.out.println(file.nextLine());
+			}
+			file.close();
+		}
+		
+		catch (FileNotFoundException e) {
+			System.out.println("The 'movies_db.txt' file does not exist, or isn't where"
+					+ " the program expected it to be.\n\nPlease put it where your"
+					+ " workspace is based.");
+		}
+	}
+	
+	public Movie (String title, int yearReleased, double rating, int quantity, int duration) throws IllegalArgumentException {
+		this.title = title;
+		this.yearReleased = yearReleased;
+		this.rating = rating;
+		this.quantity = quantity;
+		this.duration = duration;
+	
+	}
+	
+	public String toString() {
+		
+	}
 }
