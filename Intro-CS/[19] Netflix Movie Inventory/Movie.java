@@ -34,51 +34,52 @@ public class Movie {
 	
 	
 	public static void main (String[] args) {
-		try {
-			Scanner file = new Scanner (new File("movies_db.txt"));
-			
-			//create new inventory
-			Inventory movies = new Inventory();
-			
-			while (file.hasNext()) {
-				String[] entries = file.nextLine().split(" - ");
-				String newTitle = entries[0];
-				int newYear = Integer.parseInt(entries[1]);
-				int newDuration = Integer.parseInt(entries[2]);
-				double newRating = Double.parseDouble(entries[3]);
+		if (args.length > 0) {
+			try {
+				Scanner file = new Scanner (new File(args[0]));
 				
-				try {
-					movies.add(newTitle, newYear, newDuration, newRating);
-				}
+				//create new inventory
+				Inventory movies = new Inventory();
 				
-				catch (IllegalArgumentException e) {
-					System.out.println("Uh oh. Something went wrong with one of the movies.");
-					System.out.println("Make sure that each movie adheres to the following "
-							+ "requirements: \n");
+				while (file.hasNext()) {
+					String[] entries = file.nextLine().split(" - ");
+					String newTitle = entries[0];
+					int newYear = Integer.parseInt(entries[1]);
+					int newDuration = Integer.parseInt(entries[2]);
+					double newRating = Double.parseDouble(entries[3]);
 					
-					System.out.println("The year the movie was released should be between"
-							+ " 1870 and 2015.");
-					System.out.println("The ratiing should be between 0.0 and 4.0");
-					System.out.println("The duration of the movie needs to be a positive integer.");
+					try {
+						movies.add(newTitle, newYear, newDuration, newRating);
+					}
+					
+					catch (IllegalArgumentException e) {
+						System.out.println("Uh oh. Something went wrong with one of the movies.");
+						System.out.println("Make sure that each movie adheres to the following "
+								+ "requirements: \n");
+						
+						System.out.println("The year the movie was released should be between"
+								+ " 1870 and 2015.");
+						System.out.println("The ratiing should be between 0.0 and 4.0");
+						System.out.println("The duration of the movie needs to be a positive integer.");
+					}
 				}
+				
+				System.out.println(movies.toString());
+				
+				file.close();
 			}
 			
-			System.out.println(movies.toString());
-			
-			file.close();
+			catch (FileNotFoundException e) {
+				System.out.println("The 'movies_db.txt' file does not exist, or isn't where"
+						+ " the program expected it to be.\n\nPlease put it where your"
+						+ " src folder is.");
+			}
+		} else {
+			System.out.println("Yo. You need to pass the name of the .txt file as a parameter.");
 		}
 		
-		catch (FileNotFoundException e) {
-			System.out.println("The 'movies_db.txt' file does not exist, or isn't where"
-					+ " the program expected it to be.\n\nPlease put it where your"
-					+ " workspace is based.");
-		}
 	}
 	
-/*
- * MOVIE: a single movie offered by Netflix. Has the following data fields:
- * - quantity (int): number of discs at the distribution center (a positive integer)
- */
 	public Movie (String title, int yearReleased, int duration, double rating) throws IllegalArgumentException {
 		this.title = title;
 		
