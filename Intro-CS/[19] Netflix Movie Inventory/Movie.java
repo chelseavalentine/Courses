@@ -48,8 +48,7 @@ public class Movie {
 				double newRating = Double.parseDouble(entries[3]);
 				
 				try {
-					Movie fucker = new Movie (newTitle, newYear, newDuration, newRating);
-					System.out.println(fucker.toString());
+					movies.add(newTitle, newYear, newDuration, newRating);
 				}
 				
 				catch (IllegalArgumentException e) {
@@ -63,6 +62,8 @@ public class Movie {
 					System.out.println("The duration of the movie needs to be a positive integer.");
 				}
 			}
+			
+			System.out.println(movies.toString());
 			
 			file.close();
 		}
