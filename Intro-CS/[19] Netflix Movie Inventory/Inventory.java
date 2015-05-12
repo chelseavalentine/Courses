@@ -1,37 +1,96 @@
 package netflix;
+import java.util.*;
 
 /**
  * @title Netflix Movie Inventory
  * @author Chelsea Valentine
  * @date Tuesday, May 5, 2015
- * @assignment continued from Movie.java...
+ * @assignment description continued from Movie.java file...
  * 
  * INVENTORY: the current inventory in a Netflix distribution center
  * 
- * This class should be based on an ArrayList of Movie objects. Your methods can use the corresponding methods of the ArrayList
- * class.
- * 
- * This class has one private data field:
- * list (ArrayList<Movie>): list of all of the movies
- * 
- * This class needs to provide the following functionalities:
- * 
- * add: has (title, year, duration, rating) as parameters. If the movie matching the title & year doesn't exist in the
- * inventory, then the new movie is created & added to the list. If the movie already exists, then its count should be
- * incremented by 1, and the rating updated to the new one. (Don't worry i the duration matches or not.) This method
- * should catch a possible IllegalArgumentsException thrown by the constructor of the Movie class. If such an exception
- * is thrown, it should be ignored and no movie should be added to the inventory.
- * 
- * remove: has (title, year) as parameters. If the movie matching the title & year exist in the inventory, its count
- * should be decreased by 1. If the count of a given movie goes down to 0, it should be completely removed from the
- * inventory. If the movie matching the title & year doesn't exist in the inventory, nothing happens.
- * 
- * toString: returns a multi-line String object containing the list of all the movies in the inventory (use the
- * toString() method of the Movie class)
- * 
- *
+ * This class should be based on an ArrayList of Movie objects.
  */
 
-public class Inventory {
 
+public class Inventory {	
+	private ArrayList<Movie> list;
+	
+	/**
+	 * Create an Inventory object to hold all of our movies.
+	 */
+	public Inventory () {
+		this.list = new ArrayList<Movie>();
+	}
+	
+	/** Add a movie to the inventory.
+	 * @param title The title of the movie.
+	 * @param year The year the movie was released.
+	 * @param duration The length of the movie in minutes.
+	 * @param rating The rating of the movie.
+	 */
+	public void add(String title, int year, int duration, double rating) {
+		try {
+			// We first need to see if the movie doesn't exist, because we only want to add
+			// a new object if it doesn't already exist
+			boolean doesNotExist = true;
+			
+			// Check through all of the movies to see if it matches the parameters fed in
+			// to create a new Movie.
+			for (int i = 0; i < this.list.size(); i++) {
+				Movie checkThis = this.list.get(i);
+				
+				if (checkThis.checkMovie(title, year)) {
+					//It exists, so let's accurately reflect that
+					doesNotExist = false;
+					checkThis.increaseQuantityBy1();
+				}
+			}
+			
+			// If the movie really doesn't exist, let's go ahead and create our new movie
+			// then add it to our inventory.
+			if (doesNotExist) {
+				Movie addMovie = new Movie (title, year, duration, rating);
+				this.list.add(addMovie);
+			}
+		} catch (IllegalArgumentException e) {}	
+	}
+	
+	
+	/** Remove a movie from the inventory.
+	 * @param title The title of the movie that we want to remove.
+	 * @param year The release year of the movie that we want to remove.
+	 */
+	public void remove(String title, int year) {
+		
+		// Check through the movies in our inventory to see if we have a movie with
+		// that release year and title
+		for (int i = 0; i < this.list.size(); i++) {
+			Movie checkThis = this.list.get(i);
+			
+			if (checkThis.checkMovie(title, year)) {
+				// It exists so let's decrement the quantity.
+				checkThis.decreaseQuantityBy1();
+				
+				// If the quantity of the movie is now 0, let's get rid of it all together.
+				if (checkThis.getQuantity() == 0) {
+					this.list.remove(this.list.get(i));
+				}
+			}
+		}
+	}
+	
+	
+	public String toString() {
+		// Create a StringBuilder to hold the list of all of the movies in the inventory
+		StringBuilder inventoryString = new StringBuilder();
+		
+		// Add each movie to the movie list one by one
+		for (int i = 0; i < this.list.size(); i++) {
+			Movie displayThis = this.list.get(i);
+			inventoryString.append(displayThis.toString() + "\n");
+		}
+		
+		return inventoryString.toString();
+	}
 }
