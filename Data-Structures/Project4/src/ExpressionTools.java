@@ -44,7 +44,7 @@ public class ExpressionTools {
                 // while the operator stack isn't empty
                 while (!operatorStack.empty()) {
                     // if the top of the operator stack isn't a matching left brace
-                    if(false) {
+                    if(higherPrecedence(operatorStack.peek().charAt(0), token.charAt(0))) {
                         // pop the operator stack and append to the postfix string expression
                     }
                     // else
@@ -92,7 +92,9 @@ public class ExpressionTools {
                 // pop the operator stack and append it to the postfix string operation
         }
     }
-
+    private static boolean higherPrecedence(char operator1, char operator2) {
+        return false;
+    }
     public static void evaluatePostfix() {
         // scan the given postfix expression from left to right
         // for each token in the input postfix expression
