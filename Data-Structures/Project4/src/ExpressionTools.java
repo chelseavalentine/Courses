@@ -119,11 +119,12 @@ public class ExpressionTools {
     }
 
     public static void main(String[] args) {
-        try {
-            System.out.println(convertInfixToPostfix("( 300 + 23 ) * ( 43 - 21 ) / ( 84 + 7 )"));
-        } catch (PostFixException e) {
-            e.printStackTrace();
-        }
+        System.out.println(evaluatePostfix("300 23 + 43 21 - * 84 7 + /"));
+//        try {
+//            System.out.println(convertInfixToPostfix("( 300 + 23 ) * ( 43 - 21 ) / ( 84 + 7 )"));
+//        } catch (PostFixException e) {
+//            e.printStackTrace();
+//        }
     }
 
     /**
@@ -131,14 +132,12 @@ public class ExpressionTools {
      * @param postfix the postfix expression
      * @return the computation result of the expression
      */
-    public static int evaluatePostfix(String postfix) {
+    public static String evaluatePostfix(String postfix) {
         // Create a scanner to look through the infix expression
         Scanner reader = new Scanner(postfix);
-        int answer = 0;
-        Stack<Character> operatorStack = new Stack<>();
         Stack<Integer> operandStack = new Stack<>();
-        int operator1, operator2, result;
-
+        String result;
+        int operand1, operand2;
         String token;
         // scan the given postfix expression from left to right
         while (reader.hasNext()) {
@@ -151,15 +150,19 @@ public class ExpressionTools {
 
             // the token is an operator
             else if (isOperator(token)) {
+                System.out.println(operandStack);
                 // compute operand1 operator operand2
-                result = computeResult(operandStack.pop(), token.charAt(0), operandStack.pop());
+                operand2 = operandStack.pop();
+                operand1 = operandStack.pop();
+                result = computeResult(operand1, token.charAt(0), operand2);
 
                 // push the result unto the stack
-                operandStack.push(result);
+                if (!isOperand(result)) return result; // if this computation is undefined, the whole thing is undefined
+                else if (isOperand(result)) operandStack.push(Integer.parseInt(result));
             }
         }
         // return the top of the stack as the result
-        return operandStack.pop();
+        return operandStack.pop() + "";
     }
 
     /**
@@ -169,18 +172,21 @@ public class ExpressionTools {
      * @param operand2 the second integer
      * @return the answer to operand1 operator operand2
      */
-    private static int computeResult(int operand1, char operator, int operand2) {
+    private static String computeResult(int operand1, char operator, int operand2) {
+        System.out.println(operand1 + " " + operator + " " + operand2);
         switch (operator) {
             case '*':
-                return operand1 * operand2;
+                return (operand1 * operand2) + "";
             case '/':
-                return operand1 / operand2;
+                if (operand2 == 0) return "UNDEFINED"; // dividing by 0 is not possible
+                return (operand1 / operand2) + "";
             case '+':
-                return operand1 + operand2;
+                return (operand1 + operand2) + "";
             case '-':
-                return operand1 - operand2;
+                return (operand1 - operand2) + "";
         }
-        return 0;
+
+        return 0 + "ya";
     }
 
     /**
@@ -189,7 +195,8 @@ public class ExpressionTools {
      * @return whether the token is an operand (aka an integer)
      */
     private static boolean isOperand(String token) {
-        return token.matches("\\d*") || (token.charAt(0) == '-' && token.substring(1, token.length()).matches("\\d*"));
+        return token.matches("\\d*") || (token.charAt(0) == '-' && token.substring(1, token.length()).matches("\\d*")
+                && !isOperator(token));
     }
 
     /**
