@@ -170,7 +170,7 @@ public class ExpressionTools {
                 return (operand1 - operand2) + "";
         }
 
-        return 0 + "ya";
+        return 0 + " ... we should never get here because the inputs should be valid";
     }
 
     /**

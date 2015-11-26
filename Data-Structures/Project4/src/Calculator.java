@@ -19,27 +19,17 @@ public class Calculator {
     private static String mOutputFileName;
     private static PrintWriter dataPrinter;
 
-    // Computations
-    private static ArrayList<String> expressions = new ArrayList<>();
-
     public static void main(String[] args) {
         // Create input and output file names
         mFileName = args[0];
         mOutputFileName = mFileName.substring(0, mFileName.length() - 4); // everything except the extension .txt
         mOutputFileName += ".out"; // add the output extension
 
-        System.out.println(mOutputFileName);
         // get file input
         validateInputFile();
 
-        // create array of expressions
-        expressions = readInputFile();
-
-        runCalculations();
-        // start program
-        // runCalculations();
-
-        // write to output file
+        // read the input file and calculate the answer one line at a time
+        readInputFileAndCalculate();
     }
 
     /**
@@ -61,33 +51,16 @@ public class Calculator {
     /**
      * Parse and store the data from the input file.
      */
-    private static ArrayList<String> readInputFile() {
-        ArrayList<String> lines = new ArrayList<>();
-        String equation;
-
-        while (mFile.hasNext()) {
-//            equation = mFile.nextLine();
-//            try {
-//                ExpressionTools.convertInfixToPostfix(equation);
-//            } catch (PostFixException e) {
-//                System.out.println("Your expression was invalid!");
-//            }
-
-            lines.add(mFile.nextLine());
-        }
-
-        mFile.close();
-        return lines;
-    }
-
-    private static void runCalculations() {
+    private static void readInputFileAndCalculate() {
         String expression, postfix, result;
         openPrintWriter();
-        for (int i = 0; i < expressions.size(); i++) {
-            expression = expressions.get(i);
+
+        while (mFile.hasNext()) {
+            expression = mFile.nextLine();
 
             // if the line is blank, the expression is invalid.
             if (expression.trim().equals("")) writeToOutputFile("INVALID");
+
             else {
                 try {
                     postfix = ExpressionTools.convertInfixToPostfix(expression);
@@ -97,12 +70,9 @@ public class Calculator {
                     e.printStackTrace();
                 }
             }
-
-            System.out.println(expression);
         }
-        // if the expression is just an empty line, print invalid to the output file
 
-        //TODO: replace w/ actual answer
+        mFile.close();
         closePrintWriter();
     }
 
