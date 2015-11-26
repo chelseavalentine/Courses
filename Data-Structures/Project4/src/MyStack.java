@@ -45,6 +45,7 @@ public class MyStack<E> implements StackInterface<E> {
         // Make the second item in the stack the new top of the stack
         first = first.next;
 
+        size--;
         return item;
     }
 
@@ -65,6 +66,7 @@ public class MyStack<E> implements StackInterface<E> {
         // Assign the previous top of the stack to be the second element in the stack
         first.next = oldFirst;
 
+        size++;
         return null;
     }
 
@@ -91,5 +93,23 @@ public class MyStack<E> implements StackInterface<E> {
     private class Node {
         Node next;
         E item;
+    }
+
+    @Override
+    public String toString() {
+        if (size == 0) return "[]";
+        StringBuilder sb = new StringBuilder();
+        Node copy = first;
+
+        sb.append('[');
+
+        while (copy != null) {
+            sb.append(copy.item);
+            if (copy.next != null) sb.append(',');
+            copy = copy.next;
+        }
+
+        sb.append(']');
+        return sb.toString();
     }
 }

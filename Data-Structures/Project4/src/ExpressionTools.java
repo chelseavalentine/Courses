@@ -25,12 +25,9 @@ public class ExpressionTools {
         StringBuilder postfix = new StringBuilder();
         String token;
 
-        int run = 0;
         // for each token in the input infix expression
         while (expressionReader.hasNext()) {
-            run++;
             token = expressionReader.next();
-            System.out.println("token is " + token);
 
             // the token is an operand (ie. an integer), add it to the postfix string expression
             if (isOperand(token)) {
@@ -48,9 +45,7 @@ public class ExpressionTools {
                     // while the top stack element has higher or equal precedence, pop the operator stack and append the
                     // operator to the postfix expression
                     while (!(operatorStack.empty()) && higherOrEqualPrecedence(token.charAt(0), operatorStack.peek())) {
-                        System.out.println("peeking  @ " + operatorStack.peek());
                         postfix.append(operatorStack.pop() + " ");
-                        System.out.println("now the postfox is " + postfix);
                     }
                 }
                 // push the current operator onto the operator stack
@@ -59,14 +54,11 @@ public class ExpressionTools {
 
             // the token is a right brace
             else if (token.equals(")")) {
-                System.out.println("token is )");
                 while (!operatorStack.empty()) {
                     // if the top of the operator stack isn't a matching left brace, pop the operator stack and append
                     // it to the postfix expression
                     if (operatorStack.peek() != '(') {
-                        System.out.println("It's an operator and it's not (");
                         postfix.append(operatorStack.pop() + " ");
-                        System.out.println("postfix is now " + postfix.toString());
                     } else {
                         // if it's a left brace, pop it and discard it
                         operatorStack.pop();
@@ -97,7 +89,6 @@ public class ExpressionTools {
      * @return whether operator 2 has higher or equal precedence than operator 1
      */
     private static boolean higherOrEqualPrecedence(char operator1, char operator2) {
-        System.out.println("comparing " + operator1 + " and " + operator2);
         switch (operator1) {
             // We need to deal with the parentheses too because they're also pushed onto the operator stack
             case '(':
@@ -118,15 +109,6 @@ public class ExpressionTools {
         return false;
     }
 
-    public static void main(String[] args) {
-        System.out.println(evaluatePostfix("300 23 + 43 21 - * 84 7 + /"));
-//        try {
-//            System.out.println(convertInfixToPostfix("( 300 + 23 ) * ( 43 - 21 ) / ( 84 + 7 )"));
-//        } catch (PostFixException e) {
-//            e.printStackTrace();
-//        }
-    }
-
     /**
      * Evaluate a postfix expression
      * @param postfix the postfix expression
@@ -135,7 +117,7 @@ public class ExpressionTools {
     public static String evaluatePostfix(String postfix) {
         // Create a scanner to look through the infix expression
         Scanner reader = new Scanner(postfix);
-        Stack<Integer> operandStack = new Stack<>();
+        MyStack<Integer> operandStack = new MyStack<>();
         String result;
         int operand1, operand2;
         String token;
@@ -150,10 +132,13 @@ public class ExpressionTools {
 
             // the token is an operator
             else if (isOperator(token)) {
-                System.out.println(operandStack);
                 // compute operand1 operator operand2
-                operand2 = operandStack.pop();
-                operand1 = operandStack.pop();
+                // if there aren't two operands to go w/ this operator, we don't have enough operands, and that means we
+                // have an invalid expression
+                if (!operandStack.empty()) operand2 = operandStack.pop();
+                else return "INVALID";
+                if (!operandStack.empty()) operand1 = operandStack.pop();
+                else return "INVALID";
                 result = computeResult(operand1, token.charAt(0), operand2);
 
                 // push the result unto the stack
@@ -173,7 +158,6 @@ public class ExpressionTools {
      * @return the answer to operand1 operator operand2
      */
     private static String computeResult(int operand1, char operator, int operand2) {
-        System.out.println(operand1 + " " + operator + " " + operand2);
         switch (operator) {
             case '*':
                 return (operand1 * operand2) + "";
