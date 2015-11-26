@@ -18,7 +18,7 @@ public class ExpressionTools {
      * @throws PostFixException
      */
     public static String convertInfixToPostfix(String infix) throws PostFixException {
-        Stack<Character> operatorStack = new Stack<>();
+        MyStack<Character> operatorStack = new MyStack<>();
 
         // Create a scanner to look through the infix expression
         Scanner expressionReader = new Scanner(infix);
@@ -117,6 +117,7 @@ public class ExpressionTools {
     public static String evaluatePostfix(String postfix) {
         // Create a scanner to look through the infix expression
         Scanner reader = new Scanner(postfix);
+
         MyStack<Integer> operandStack = new MyStack<>();
         String result;
         int operand1, operand2;
