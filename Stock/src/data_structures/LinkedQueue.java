@@ -78,5 +78,10 @@ public class LinkedQueue<E> implements LinkedQueueInterface<E> {
             current = current.next;
             return item;
         }
+
+        @Override
+        public void remove() {
+            // not supported
+        }
     }
 }

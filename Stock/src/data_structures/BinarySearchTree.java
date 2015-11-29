@@ -61,15 +61,15 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> implements Bin
     }
 
     public Iterable<Key> keys() {
-        Queue<Key> q = new Queue<Key>();
+        LinkedQueue<Key> q = new LinkedQueue<>();
         inorder(root, q);
         return q;
     }
 
-    private void inorder(Node x, Queue<Key> q) {
+    private void inorder(Node x, LinkedQueue<Key> q) {
         if (x == null) return;
         inorder(x.left, q);
-        q.add(x.key);
+        q.enqueue(x.key);
         inorder(x.right, q);
     }
 

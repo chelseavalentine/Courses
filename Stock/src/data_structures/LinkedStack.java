@@ -82,5 +82,10 @@ public class LinkedStack<E> implements LinkedStackInterface<E> {
             current = current.next;
             return item;
         }
+
+        @Override
+        public void remove() {
+            // not supported
+        }
     }
 }
