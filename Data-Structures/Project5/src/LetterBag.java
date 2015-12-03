@@ -7,7 +7,7 @@ import java.util.Collections;
  * given a dictionary.
  * @author Joanna Klukowska
  */
-public class LetterBag implements LetterBagInterface {
+public class LetterBag implements LetterBagInterface{
     //the letters in the object
     private ArrayList<Character> lettersInBag;
 

@@ -17,14 +17,13 @@ import java.util.ArrayList;
 public class Dictionary extends BST<String>
                         implements DictionaryInterface {
     //actual storage for the words
-    private ArrayList < String > words;
-
+    private BST<String> words;
 
     /**
      * Creates an empty Dictionary object (no words).
      */
-    public Dictionary ( ) {
-        words = new ArrayList < String > () ;
+    public Dictionary() {
+        words = new BST<>();
     }
 
     /**
@@ -34,10 +33,24 @@ public class Dictionary extends BST<String>
      * @param listOfWords the list of words to be stored in the newly created
      * Dictionary object
      */
-    public Dictionary ( ArrayList < String > listOfWords ) {
+    public Dictionary ( BST<String> listOfWords ) {
         words = listOfWords;
         if (null == words) {
-            words = new ArrayList <String> ();
+            words = new BST<>();
+        }
+    }
+
+    /**
+     * Creates a Dictionary object containing all words from the
+     * listOfWords passed as a parameter.
+     *
+     * @param listOfWords the list of words to be stored in the newly created
+     * Dictionary object
+     */
+    public Dictionary ( ArrayList<String> listOfWords ) {
+        words = new BST<>();
+        for (int i = 0; i < listOfWords.size(); i++) {
+            words.insert(listOfWords.get(i));
         }
     }
 
@@ -50,13 +63,34 @@ public class Dictionary extends BST<String>
      * size
      */
     public Dictionary getWordsBySize ( int size ) {
-        ArrayList <String> wordsBySize = new ArrayList<String> ();
-        for (int i = 0; i < words.size(); i++)
-            if (words.get(i).length() == size)
-                wordsBySize.add(words.get(i));
+        BST<String> wordsBySize = new BST<>();
+
+        // add word to the BST if it's the specified size
+        getWordsBySize(wordsBySize, wordsBySize.root, size);
+
         return new Dictionary (wordsBySize);
     }
 
+    /**
+     *
+     * @param bst the bst to add words to
+     * @param node the node to check the size of
+     * @param size the length of the word
+     */
+    private void getWordsBySize(BST bst, Node node, int size) {
+        if (node == null) return;
+
+        // work on left subtree
+        getWordsBySize(bst, node.left, size);
+
+        // process node
+        if (node.item.length() == size)
+            // add node if it's the specified size
+            bst.insert(node.item);
+
+        // work on right subtree
+        getWordsBySize(bst, node.right, size);
+    }
 
     /**
      * Performs (binary) search in this Dictionary object for a given word.
@@ -64,29 +98,7 @@ public class Dictionary extends BST<String>
      * @return true if the word is in this Dictionary object, false otherwise
      */
     public boolean findWord ( String word ) {
-        return isWordInDictionaryRecursive( word, 0, words.size() - 1 );
-    }
-
-    /*
-     * The actual method providing recursive implementation of the binary search.
-     * @param word the word to look for in this Dictionary object
-     * @param begin start of the range for the current iteration
-     * @param end   end of the range for the current iteration
-     * @return  true if the word is in this Dictionary object, false otherwise
-     */
-    private boolean isWordInDictionaryRecursive ( String word, int begin, int end ) {
-        if (begin > end )
-            return false;
-
-        int half = (begin+end+1) / 2;
-        int comparison = words.get(half).compareToIgnoreCase(word);
-
-        if ( comparison < 0 )
-            return isWordInDictionaryRecursive( word, half + 1, end );
-        else if ( comparison > 0 )
-            return isWordInDictionaryRecursive( word, begin, half - 1);
-        else
-            return true;
+        return words.contains(word);
     }
 
     /**
@@ -96,36 +108,23 @@ public class Dictionary extends BST<String>
      * in this Dictionary object, false otherwise
      */
     public boolean findPrefix (String prefix ) {
-        return isPrefixInDictionaryRecursive (prefix, 0, words.size() - 1 );
+        return isPrefixInDictionaryRecursive(words.root, prefix);
     }
 
-    /*
+    /**
      * The actual method providing recursive implementation of the binary search
      * for the prefix.
+     * @param node the root of the subtree to search through for the prefix
      * @param prefix the prefix to look for in this Dictionary object.
-     * @param begin start of the range for the current iteration
-     * @param end end of the range for the current iteration
      * @return true if at least one word with the specified prefix exists
      * in this Dictionary object, false otherwise
      */
-    private boolean isPrefixInDictionaryRecursive(String prefix, int begin, int end) {
-        if (begin > end )
-            return false;
-
-        int half = (begin+end+1) / 2;
-        int comparison = words.get(half).compareToIgnoreCase(prefix);
-        boolean isPrefix = words.get(half).startsWith(prefix);
-        if (isPrefix)
-            return true;
-
-        if (comparison < 0 )
-            return isPrefixInDictionaryRecursive( prefix, half + 1, end );
-        else if ( comparison > 0 )
-            return isPrefixInDictionaryRecursive( prefix, begin, half - 1);
-        else  //this case should never happen
-            return true;
+    private boolean isPrefixInDictionaryRecursive(Node node, String prefix) {
+        return node != null
+                && (node.item.toLowerCase().startsWith(prefix)
+                // check the left side of the tree
+                || isPrefixInDictionaryRecursive(node.left, prefix)
+                // check the right side of the tree
+                || isPrefixInDictionaryRecursive(node.right, prefix));
     }
-
-
-
 }

@@ -1,7 +1,5 @@
 package data_structures;
 
-import java.util.Queue;
-
 /**
  * Binary Search Tree
  * Created by Chelsea on 11/16/2015.
@@ -19,7 +17,6 @@ public class BinarySearchTree<Key extends Comparable<Key>, Value> implements Bin
 
     @Override
     public void put(Comparable comparable, Object val) {
-
     }
 
     @Override
