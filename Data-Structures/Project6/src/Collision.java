@@ -36,7 +36,7 @@ public class Collision implements Comparable <Collision>{
 	 * time
 	 * borough
 	 * zip
-	 * lattitude^
+	 * latitude^
 	 * longitude ^
 	 * on street name^
 	 * cross street name ^
@@ -77,7 +77,7 @@ public class Collision implements Comparable <Collision>{
 			cyclistsInjured = Integer.parseInt(entries.get(12));
 			cyclistsKilled = Integer.parseInt(entries.get(13));
 			motoristsInjured = Integer.parseInt(entries.get(14));
-			motoristsKilled = Integer.parseInt(entries.get(15));			
+			motoristsKilled = Integer.parseInt(entries.get(15));
 		}
 		catch (NumberFormatException ex ) {
 			throw new IllegalArgumentException( ex.getMessage() );
@@ -142,11 +142,11 @@ public class Collision implements Comparable <Collision>{
 		}
 		else if (sortOrder == SortOrder.CYCLISTS) {
 			return ( (this.cyclistsInjured + this.cyclistsKilled) 
-					- (other.cyclistsInjured + this.cyclistsKilled ) );
+					- (other.cyclistsInjured + other.cyclistsKilled ) );
 		}
 		else if (sortOrder == SortOrder.PERSONS) {
 			return ( (this.personsInjured + this.personsKilled) 
-					- (other.personsInjured + this.personsKilled ) );
+					- (other.personsInjured + other.personsKilled ) );
 		}
 		return 0;
 	}

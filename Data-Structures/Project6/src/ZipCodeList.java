@@ -1,16 +1,17 @@
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.TreeSet;
 
 /**
  * ZipCodeList contains collision objects that all occured in the same zip
  * code. It keeps track of additional information like total number of
  * collisions, injuries and fatalities. 
- * @author Joanna K. 
+ * @author Joanna K.
+ * @author Chelsea Valentine
  *
  */
 public class ZipCodeList  implements Iterable <Collision>, Comparable<ZipCodeList>{
 	
-	private ArrayList<Collision> list; 
+	private TreeSet<Collision> list; // store collisions in a tree set
 	
 	private String zip; 
 	
@@ -31,7 +32,7 @@ public class ZipCodeList  implements Iterable <Collision>, Comparable<ZipCodeLis
 	 * @param col the initial collisions for this ZipCodeList object 
 	 */
 	public ZipCodeList ( Collision col ) { 
-		list = new ArrayList<Collision> () ;
+		list = new TreeSet<Collision>() ;
 		zip = col.getZip();
 		add(col);
 	}

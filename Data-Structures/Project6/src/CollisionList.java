@@ -1,25 +1,22 @@
-package proj6;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.*;
 
 /**
  * CollisionList class stores a list of collisions. The organization of this list is
  * based on the zip code associated with a given collision. This organization simplifies 
  * processing of collisions that occur within a particular zip code. 
  * @author Joanna K.
+ * @author Chelsea Valentine
  */
 
 public class CollisionList {
 
-	private ArrayList<ZipCodeList> list;
+	private TreeSet<ZipCodeList> list; // store zipcodes in a tree set
 	
 	/**
 	 * Creates an empty CollisionList object. 
 	 */
 	public CollisionList() {
-		list = new ArrayList<ZipCodeList> ();
+		list = new TreeSet<ZipCodeList>();
 	}
 	
 	
@@ -59,11 +56,22 @@ public class CollisionList {
 		try{
 			Collision col = new Collision(record);
 			ZipCodeList tmp = new ZipCodeList(col);
-			int index = list.indexOf(tmp);
-			if (index >= 0) { //add the collision object to the existing zip code list
-				list.get(index).add(col);				
+			//add the collision object to the existing zip code list
+			if (list.contains(tmp)) {
+				// find the matching zipcode and increment it
+				Iterator<ZipCodeList> it = list.iterator();
+				while (it.hasNext()) {
+					ZipCodeList current = it.next();
+					// if we have created a zip code list identical to one that already exists,
+					// just increment it
+					if (current.equals(tmp)) {
+						current.add(col);
+						break;
+					}
+				}
 			}
-			else { //add the new zip code list
+			// add the new zip code list
+			else {
 				list.add(tmp);
 			}
 		}
@@ -83,26 +91,27 @@ public class CollisionList {
 	 *  one per line, that contains k zip codes with the highest number of collisions
 	 */
 	public String getZipCodesWithMostCollisions (int k) {
-
 		@SuppressWarnings("unchecked")
-		ArrayList<ZipCodeList> sortedList = (ArrayList<ZipCodeList>) list.clone();
-		//sort the list 
-		Collections.sort(sortedList, new CompareByNumOfCollisionsDescending() );
-		
+		TreeSet<ZipCodeList> sortedList = new TreeSet<>(new CompareByNumOfCollisionsDescending());
+
+		// "Clone" list into the treeset
+		Iterator<ZipCodeList> itList = list.iterator();
+		while (itList.hasNext()) {
+			sortedList.add(itList.next());
+		}
 		StringBuffer result = new StringBuffer();
 		
 		int count = 0;
-		
-		for (int i = 0; i < k && i < sortedList.size() && count<sortedList.size(); i++ ) {
-			do { 
-				result.append(String.format("    %5s  %5d collisions\n",sortedList.get(count).getZip(),
-					sortedList.get(count).getTotalNumOfCollisions()));
+
+		Iterator<ZipCodeList> it = sortedList.iterator();
+		ZipCodeList current;
+		while (count < k && it.hasNext()) {
+			// iterate through the list of most collisions and add the results to our result output
+				current = it.next();
+				result.append(String.format("    %5s  %5d collisions\n", current.getZip(),
+						current.getTotalNumOfCollisions()));
 				count++;
-			}while ( count+1 < sortedList.size() 
-					&& sortedList.get(count).getTotalNumOfCollisions() 
-					== sortedList.get(count+1).getTotalNumOfCollisions() ) ;
 		}
-		
 		return result.toString();
 	}
 	
@@ -116,24 +125,38 @@ public class CollisionList {
 	public String getZipCodesWithLeastCollisions (int k) {
 
 		@SuppressWarnings("unchecked")
-		ArrayList<ZipCodeList> sortedList = (ArrayList<ZipCodeList>) list.clone();
-		//sort the list 
-		Collections.sort(sortedList, new CompareByNumOfCollisionsAscending() );
-		
+		TreeSet<ZipCodeList> sortedList = new TreeSet<>(new CompareByNumOfCollisionsAscending());
+
+		// "Clone" list into the treeset
+		Iterator<ZipCodeList> itList = list.iterator();
+		while (itList.hasNext())
+			sortedList.add(itList.next());
+
 		StringBuffer result = new StringBuffer();
-		
+
 		int count = 0;
-		
-		for (int i = 0; i < k && i < sortedList.size() && count<sortedList.size(); i++ ) {
-			do { 
-				result.insert(0, String.format("    %5s  %5d collisions\n",sortedList.get(count).getZip(),
-					sortedList.get(count).getTotalNumOfCollisions()));
-				count++;
-			}while ( count+1 < sortedList.size() 
-					&& sortedList.get(count).getTotalNumOfCollisions() 
-					== sortedList.get(count+1).getTotalNumOfCollisions() ) ;
+
+		// get lowest number of collisions
+		Iterator<ZipCodeList> it = sortedList.iterator();
+
+		ZipCodeList current;
+
+		String[] ascResults = new String[k]; // array of results in ascending order
+		int resultIndex = 0; // keep track of asc results index
+
+		while (count < k && it.hasNext()) {
+			// iterate through sorted list and add results to asc result
+			current = it.next();
+			ascResults[resultIndex] = String.format("    %5s  %5d collisions\n", current.getZip(),
+					current.getTotalNumOfCollisions());
+			resultIndex++;
+			count++;
 		}
-		
+
+		// make results descending
+		for (int i = ascResults.length - 1; i >= 0; i--) {
+			result.append(ascResults[i]);
+		}
 		return result.toString();
 	}
 	
@@ -148,30 +171,31 @@ public class CollisionList {
 	 *  one per line, that contains k zip codes with the highest number of injured cyclists 
 	 */
 	public String getZipCodesWithMostCyclistIncidents ( int k ) {
-
 		@SuppressWarnings("unchecked")
-		ArrayList<ZipCodeList> sortedList = (ArrayList<ZipCodeList>) list.clone();
-		//sort the list 
-		CompareByNumOfCyclistsIncidentsDescending comp = new CompareByNumOfCyclistsIncidentsDescending() ;
-		Collections.sort(sortedList, comp );
-		
+		TreeSet<ZipCodeList> sortedList = new TreeSet<>(new CompareByNumOfCyclistsIncidentsDescending());
+
+		// "Clone" list into the treeset
+		Iterator<ZipCodeList> itList = list.iterator();
+		while (itList.hasNext()) {
+			sortedList.add(itList.next());
+		}
 		StringBuffer result = new StringBuffer();
-		
+
 		int inj = 0, killed = 0;
 		int count = 0;
-		
-		for (int i = 0; i < k && i < sortedList.size() && count< sortedList.size(); i++ ) {
-			do { 
-				inj = sortedList.get(count).getTotalNumOfCyclistsInjured();
-				killed =  sortedList.get(count).getTotalNumOfCyclistsKilled();
-				result.append( String.format("    %5s  %5d (%3d killed ) cyclists hurt\n", sortedList.get(count).getZip(),
-						inj + killed, killed ));
-					count++;
-			}
-			while ( count+1 < sortedList.size() 
-					&& 0 == comp.compare(sortedList.get(count), sortedList.get(count+1) ) ) ;
+
+		Iterator<ZipCodeList> it = sortedList.iterator();
+		ZipCodeList current;
+		while (count < k && it.hasNext()) {
+			// iterate through the zipcode lists and add the related cyclist data to results
+			current = it.next();
+			inj = current.getTotalNumOfCyclistsInjured();
+			killed = current.getTotalNumOfCyclistsKilled();
+			result.append(String.format("    %5s  %5d (%3d killed ) cyclists hurt\n", current.getZip(), inj + killed,
+					killed));
+			count++;
 		}
-		
+
 		return result.toString();
 	}
 	
@@ -184,30 +208,32 @@ public class CollisionList {
 	 *  one per line, that contains k zip codes with the highest number of injured persons 
 	 */
 	public String getZipCodesWithMostPersonIncidents ( int k ) {
-
 		@SuppressWarnings("unchecked")
-		ArrayList<ZipCodeList> sortedList = (ArrayList<ZipCodeList>) list.clone();
-		//sort the list 
-		CompareByNumOfPersonsIncidentsDescending comp = new CompareByNumOfPersonsIncidentsDescending() ;
-		Collections.sort(sortedList, comp );
-		
+		TreeSet<ZipCodeList> sortedList = new TreeSet<>(new CompareByNumOfPersonsIncidentsDescending());
+
+		// "Clone" list into the treeset
+		Iterator<ZipCodeList> itList = list.iterator();
+		while (itList.hasNext()) {
+			sortedList.add(itList.next());
+		}
 		StringBuffer result = new StringBuffer();
-		
+
 		int inj = 0, killed = 0;
 		int count = 0;
-		
-		for (int i = 0; i < k && i < sortedList.size() && count< sortedList.size(); i++ ) {
-			do { 
-				inj = sortedList.get(count).getTotalNumOfPersonsInjured();
-				killed =  sortedList.get(count).getTotalNumOfPersonsKilled();
-				result.append( String.format("    %5s  %5d (%3d killed ) persons hurt\n", sortedList.get(count).getZip(),
-						inj + killed, killed ));
-					count++;
-			}
-			while ( count+1 < sortedList.size() 
-					&& 0 == comp.compare(sortedList.get(count), sortedList.get(count+1) ) ) ;
+
+		Iterator<ZipCodeList> it = sortedList.iterator();
+		ZipCodeList current;
+		while (count < k && it.hasNext()) {
+			// iterate through the list until we've found k of the top zip code lists w/ person casualties
+			// and injuries
+			current = it.next();
+			inj = current.getTotalNumOfPersonsInjured();
+			killed = current.getTotalNumOfPersonsKilled();
+			result.append(String.format("    %5s  %5d (%3d killed ) persons hurt\n", current.getZip(), inj + killed,
+					killed));
+			count++;
 		}
-		
+
 		return result.toString();
 	}
 	
@@ -225,13 +251,17 @@ public class CollisionList {
 		int bicycle = 0;
 		int fireTruck = 0;
 		int ambulance = 0;
-		
-		int totalNumOfCollisions = 0;
-		
-		for (ZipCodeList l : list ) {
-			totalNumOfCollisions += l.getTotalNumOfCollisions(); 
-			for ( Collision c : l ) { 
-				if (c.getVehicleCode1().equalsIgnoreCase("taxi") || 
+
+		Iterator<ZipCodeList> it = list.iterator();
+		// iterate through the zip code lists
+		while (it.hasNext()) {
+			ZipCodeList current = it.next();
+			Iterator<Collision> colIt = current.iterator();
+			// iterate through the zip code list's collisions
+			while (colIt.hasNext()) {
+				Collision c = colIt.next();
+				// add to respective tallies
+				if (c.getVehicleCode1().equalsIgnoreCase("taxi") ||
 						c.getVehicleCode2().equalsIgnoreCase("taxi")) taxi++;
 				if (c.getVehicleCode1().equalsIgnoreCase("bus") ||
 						c.getVehicleCode2().equalsIgnoreCase("bus")) bus++;
@@ -245,11 +275,12 @@ public class CollisionList {
 		}
 
 		//create a string object with results
-		result += String.format("    %-11s %5.2f%%\n", "taxi", (float)(taxi)/totalNumOfCollisions*100);
-		result += String.format("    %-11s %5.2f%%\n", "bus", (float)(bus)/totalNumOfCollisions*100);
-		result += String.format("    %-11s %5.2f%%\n", "bicycle", (float)(bicycle)/totalNumOfCollisions*100);
-		result += String.format("    %-11s %5.2f%%\n", "fire truck", (float)(fireTruck)/totalNumOfCollisions*100);
-		result += String.format("    %-11s %5.2f%%\n", "ambulance", (float)(ambulance)/totalNumOfCollisions*100);
+		// divide by the size of the list of zip code lists
+		result += String.format("    %-11s %5.2f%%\n", "taxi", (float)(taxi)/list.size()*100);
+		result += String.format("    %-11s %5.2f%%\n", "bus", (float)(bus)/list.size()*100);
+		result += String.format("    %-11s %5.2f%%\n", "bicycle", (float)(bicycle)/list.size()*100);
+		result += String.format("    %-11s %5.2f%%\n", "fire truck", (float)(fireTruck)/list.size()*100);
+		result += String.format("    %-11s %5.2f%%\n", "ambulance", (float)(ambulance)/list.size()*100);
 		
 		return result;
 	}
@@ -267,11 +298,9 @@ public class CollisionList {
 		
 		String hour = "", time = ""; 
 		StringBuffer bar; 
-		int totalNumOfCollisions = 0; 
-		
+
 		for (ZipCodeList l : list ) {
-			totalNumOfCollisions += l.getTotalNumOfCollisions(); 
-			for ( Collision c : l ) { 
+			for ( Collision c : l ) {
 				try { 
 					//extract the hour from the time entry 
 					time = c.getTime();
@@ -289,12 +318,12 @@ public class CollisionList {
 		for (int i = 0; i < 24; i++ ) {
 			//determine number of "bars" to be printed for visual representation of 
 			//the histogram 
-			int numOfBars = (int)(((double)hourlyCount[i]/totalNumOfCollisions) * 240);
+			int numOfBars = (int)(((double)hourlyCount[i]/list.size()) * 240);
 			bar = new StringBuffer(numOfBars);
 			for (int j = 0; j < numOfBars; j++)
 				bar.append("|");
 			result.append(String.format("%3d h  %5.1f%% %s%n", 
-					i, 100.0*hourlyCount[i]/totalNumOfCollisions, bar.toString() ));
+					i, 100.0*hourlyCount[i]/list.size(), bar.toString() ));
 		}
 		
 		return result.toString();
