@@ -8,7 +8,7 @@ import java.util.Iterator;
  * @since 11/16/2015
  */
 public class LinkedList<E> implements LinkedListInterface<E> {
-    private Node head;
+    private Node head = null;
     private int size = 0;
 
     @Override
@@ -37,10 +37,23 @@ public class LinkedList<E> implements LinkedListInterface<E> {
     public void add(E o) {
         Node node = new Node();
         node.item = o;
-
-        head.next = node;
-        head = node;
+        if (head == null) {
+            head = node;
+        } else {
+            node.next = head;
+            head = node;
+        }
         size++;
+    }
+
+    public Node get(int index) {
+        if (head == null) return null;
+        Node curr = head;
+        while (index > 0 && curr != null) {
+            curr = curr.next;
+            index--;
+        }
+        return curr;
     }
 
     @Override
@@ -74,10 +87,34 @@ public class LinkedList<E> implements LinkedListInterface<E> {
             current = current.next;
             return item;
         }
+
+        @Override
+        public void remove() {
+            //
+        }
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append('[');
+        Node curr = head;
+        while (curr != null) {
+            if (curr.next != null) sb.append(curr.item + ", ");
+            else sb.append(curr.item);
+            curr = curr.next;
+        }
+        sb.append(']');
+        return sb.toString();
     }
 
     private class Node {
         Node next;
         E item;
+
+        @Override
+        public String toString() {
+            return item.toString();
+        }
     }
 }

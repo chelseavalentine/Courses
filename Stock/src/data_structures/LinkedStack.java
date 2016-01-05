@@ -54,7 +54,7 @@ public class LinkedStack<E> implements LinkedStackInterface<E> {
         int index = 1;
 
         while (current != null) {
-            if (current == o || current.equals(o)) return index;
+            if (current.item == o || current.item.equals(o)) return index;
             current = current.next;
             index++;
         }

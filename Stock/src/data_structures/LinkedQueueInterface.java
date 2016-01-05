@@ -1,9 +1,8 @@
 package data_structures;
 
 /**
- * Queue Interface
- * @author Chelsea Valentine
- * @since 11/16/2015
+ * Linked Queue Interface
+ * Created by chelsea on 12/17/15.
  */
 public interface LinkedQueueInterface<E> extends Iterable<E> {
     int size();

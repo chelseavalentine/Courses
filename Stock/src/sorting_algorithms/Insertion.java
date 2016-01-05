@@ -7,7 +7,8 @@ import java.util.Random;
  * @author: Chelsea Valentine
  * @date: 10/20/2015
 
- * Sorts with insertion sort.
+ * Iterates through the list, swapping each element with the element
+ * to its left if it's larger
  */
 public class Insertion {
     public static void main(String[] args) {

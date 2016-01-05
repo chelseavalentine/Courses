@@ -77,5 +77,10 @@ public class ArrayStack<E> implements ArrayStackInterface<E> {
         public E next() {
             return stack[--i];
         }
+
+        @Override
+        public void remove() {
+            //
+        }
     }
 }
