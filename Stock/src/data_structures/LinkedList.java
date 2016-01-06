@@ -56,6 +56,33 @@ public class LinkedList<E> implements LinkedListInterface<E> {
         return curr;
     }
 
+    public void partition(int val) {
+        if (head == null) return;
+        Node curr = head, lower;
+        while (curr != null) {
+            if ((Integer)curr.item >= val) {
+                lower = curr.next;
+                while (lower != null) {
+                    if ((Integer)lower.item < val) {
+                        swap(curr, lower);
+                        break;
+                    }
+                    else {
+                        lower = lower.next;
+                    }
+                }
+            }
+            curr = curr.next;
+        }
+    }
+
+    private void swap(Node n1, Node n2) {
+        Node temp = new Node();
+        temp.item = n1.item;
+        n1.item = n2.item;
+        n2.item = temp.item;
+     }
+
     @Override
     public void remove() {
         Node current = head;
